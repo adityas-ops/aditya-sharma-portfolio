@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'SFMono-Medium';
+    src: url('/fonts/SFMono/SFMono-Medium.woff2') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMono-Regular';
+    src: url('/fonts/SFMono/SFMono-Regular.woff2') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SFMono-Semibold';
+    src: url('/fonts/SFMono/SFMono-Semibold.woff2') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Calibre-Medium';
+    src: url('/fonts/Calibre/Calibre-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Calibre-Regular';
+    src: url('/fonts/Calibre/Calibre-Regular.woff2') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Calibre-Semibold';
+    src: url('/fonts/Calibre/Calibre-Semibold.woff2') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}

@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-active-color: #64ffda;
+  /* fonts */
+  --font-SFMono-Medium: 'SFMono-Medium';
+  --font-SFMono-Regular: 'SFMono-Regular';
+  --font-SFMono-Semibold: 'SFMono-Semibold';
+  --font-Calibre-Medium: 'Calibre-Medium';
+  --font-Calibre-Regular: 'Calibre-Regular';
+  --font-Calibre-Semibold: 'Calibre-Semibold';
+  /* breakpoints */
+   --breakpoint-sm: 48.125rem
+}
+
+
+
+
+:root {
+  background-color: #091930;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.logo-container {
+  position: relative;
+}
+
+#logo {
+  width: 200px;
+  height: 230px;
+  color: #fff;
+}
+
+.hexagon-stroke {
+  fill: none;
+  stroke: #64ffda;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.hexagon-border {
+  fill: none;
+  stroke: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.3;
+}
+
+.letter-a {
+  fill: #64ffda;
+  opacity: 0;
+
+}
+
+.restart-btn {
+  position: fixed;
+  bottom: 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00ff00;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.restart-btn:hover {
+  background: #00cc00;
+}
