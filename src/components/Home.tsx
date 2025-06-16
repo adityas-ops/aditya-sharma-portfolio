@@ -9,13 +9,32 @@ import Hero from "./sections/Hero";
 import About from "./sections/About";
 
 function Home() {
-  const [activeSection, setActiveSection] = useState<string|null>(null);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isShowShadow, setIsshowShadow] = useState<boolean>(false);
   const [showSidebar, setShowsidebar] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
+  const navItemsRef = useRef<(HTMLLIElement | HTMLDivElement |HTMLButtonElement | null)[]>([]);
+
+  useGSAP(
+    () => {
+      // Initial state - hidden above the viewport
+      gsap.set(navItemsRef.current, { y: -30, opacity: 0 });
+
+      // Animate in one by one with a stagger
+      gsap.to(navItemsRef.current, {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out",
+        stagger: 0.15, // delay between each animation
+        delay: 0.5,
+      });
+    },
+    { scope: navItemsRef }
+  );
 
   useGSAP(
     () => {
@@ -135,13 +154,13 @@ function Home() {
             behavior: "smooth",
             block: "start",
           });
-            setActiveSection(hash);
+          setActiveSection(hash);
         }, 100);
       }
     }
   }, []);
 
-  console.log("active sction",activeSection)
+  console.log("active sction", activeSection);
 
   // Helper function to determine active link style
   const getLinkClass = (sectionId: string) => {
@@ -167,17 +186,22 @@ function Home() {
         }`}
       >
         <button
+        ref={(el) => {
+                  navItemsRef.current[0] = el;
+                }}
           onClick={(e) => handleScroll(e, "#")}
           className="cursor-pointer text-active-color hover:text-shadow-xs font-SFMono-Semibold text-3xl hover:text-shadow-active-color hover:scale-[1.03] duration-300"
         >
-          {
-            showSidebar ? "A.":"ADITYA"
-          }
+          {showSidebar ? "A." : "ADITYA"}
         </button>
         <div className=" hidden sm:flex flex-row items-center gap-[25px]">
           <nav className="">
             <ul className="flex space-x-8">
-              <li>
+              <li
+                ref={(el) => {
+                  navItemsRef.current[1] = el;
+                }}
+              >
                 <a
                   href="#about"
                   onClick={(e) => handleScroll(e, "about")}
@@ -189,7 +213,11 @@ function Home() {
                   About
                 </a>
               </li>
-              <li>
+              <li
+                ref={(el) => {
+                  navItemsRef.current[2] = el;
+                }}
+              >
                 <a
                   href="#experience"
                   onClick={(e) => handleScroll(e, "experience")}
@@ -201,7 +229,11 @@ function Home() {
                   Experience
                 </a>
               </li>
-              <li>
+              <li
+                ref={(el) => {
+                  navItemsRef.current[3] = el;
+                }}
+              >
                 <a
                   href="#work"
                   onClick={(e) => handleScroll(e, "work")}
@@ -213,7 +245,11 @@ function Home() {
                   Work
                 </a>
               </li>
-              <li>
+              <li
+                ref={(el) => {
+                  navItemsRef.current[4] = el;
+                }}
+              >
                 <a
                   href="#contact"
                   onClick={(e) => handleScroll(e, "contact")}
@@ -227,7 +263,12 @@ function Home() {
               </li>
             </ul>
           </nav>
-          <div className="relative">
+          <div
+            ref={(el) => {
+              navItemsRef.current[5] = el;
+            }}
+            className="relative"
+          >
             {/* Background div - lower z-index */}
             <div className="py-[6px] z-10 px-[14px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
 
@@ -249,10 +290,10 @@ function Home() {
       <div className=" max-w-[90%] sm:max-w-[70%] mx-auto  ">
         {/* Page Sections */}
         <section className="">
-          <Hero/>
+          <Hero />
         </section>
         <section id="about" className="">
-         <About/>
+          <About />
         </section>
 
         <section
