@@ -6,6 +6,7 @@ import { FiFacebook } from "react-icons/fi";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Hero from "./sections/Hero";
+import About from "./sections/About";
 
 function Home() {
   const [activeSection, setActiveSection] = useState<string|null>(null);
@@ -159,7 +160,7 @@ function Home() {
     <div className={`w-screen h-screen`}>
       {/* Header with hide/show on scroll */}
       <header
-        className={`h-[70px] pt-[20px] px-[40px] z-50 backdrop-blur-[5px] backdrop-brightness-100 transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)]  w-full flex   flex-row  items-center  justify-between  fixed top-0  ${
+        className={`h-[70px] pt-[20px] px-[15px] sm:px-[40px] z-50 backdrop-blur-[5px] backdrop-brightness-100 transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)]  w-full flex   flex-row  items-center  justify-between  fixed top-0  ${
           isShowShadow ? " shadow-md shadow-[#080d14]" : " shadow-none"
         }   z-50 transition-transform duration-500 ${
           visible ? "translate-y-0 " : "-translate-y-full"
@@ -248,9 +249,8 @@ function Home() {
         <section className="">
           <Hero/>
         </section>
-        <section id="about" className="min-h-screen pt-[70px] p-8">
-          <h2 className="text-3xl font-bold mb-4">About</h2>
-          {/* About content */}
+        <section id="about" className="">
+         <About/>
         </section>
 
         <section
@@ -317,7 +317,7 @@ function Home() {
 
             <div
               ref={sidebarRef}
-              className="fixed right-0 sm:hidden block top-0 z-50 h-full w-[80%] max-w-md bg-[#112240] transform translate-x-full shadow-xl"
+              className="fixed right-0 sm:hidden block top-0 z-50 h-full w-[70%] max-w-md bg-[#112240] transform translate-x-full shadow-xl"
               aria-modal="true"
               aria-hidden={!showSidebar}
             >
