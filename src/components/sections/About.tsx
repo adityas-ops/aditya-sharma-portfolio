@@ -8,7 +8,7 @@ function About() {
             About Me
           </p>
         </div>
-        <div className="sm:w-[150px] w-[36%] h-[1px] bg-[#233554]"></div>
+        <div className="sm:w-[150px] w-[36%] h-[1.5px] bg-[#233554]"></div>
       </div>
     </div>
   );

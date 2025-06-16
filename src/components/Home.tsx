@@ -160,7 +160,7 @@ function Home() {
     <div className={`w-screen h-screen`}>
       {/* Header with hide/show on scroll */}
       <header
-        className={`h-[70px] pt-[20px] px-[15px] sm:px-[40px] z-50 backdrop-blur-[5px] backdrop-brightness-100 transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)]  w-full flex   flex-row  items-center  justify-between  fixed top-0  ${
+        className={`sm:h-[70px] h-[60px] sm:pt-[20px] px-[15px] sm:px-[40px] z-50 backdrop-blur-[5px] backdrop-brightness-100 transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)]  w-full flex   flex-row  items-center  justify-between  fixed top-0  ${
           isShowShadow ? " shadow-md shadow-[#080d14]" : " shadow-none"
         }   z-50 transition-transform duration-500 ${
           visible ? "translate-y-0 " : "-translate-y-full"
@@ -170,7 +170,9 @@ function Home() {
           onClick={(e) => handleScroll(e, "#")}
           className="cursor-pointer text-active-color hover:text-shadow-xs font-SFMono-Semibold text-3xl hover:text-shadow-active-color hover:scale-[1.03] duration-300"
         >
-          ADITYA
+          {
+            showSidebar ? "A.":"ADITYA"
+          }
         </button>
         <div className=" hidden sm:flex flex-row items-center gap-[25px]">
           <nav className="">
@@ -237,7 +239,7 @@ function Home() {
             </button>
           </div>
         </div>
-        <div className="w-[60px]  h-[54px] sm:hidden flex justify-center items-center">
+        <div className="w-[40px]   h-[54px] sm:hidden flex justify-center items-center">
           <button
             onClick={() => setShowsidebar(!showSidebar)}
             className="relative cursor-pointer w-[30px] h-[2px] bg-active-color before:content-[''] before:absolute before:w-[36px] before:h-[2px] before:bg-active-color before:-top-2 before:right-0 after:content-[''] after:absolute after:w-[24px] after:h-[2px] after:bg-active-color after:top-2 after:right-0"
@@ -310,7 +312,7 @@ function Home() {
           <>
             <div
               ref={backdropRef}
-              className="fixed inset-0 sm:hidden block z-40 bg-black/30 backdrop-blur-[3.5px] opacity-0"
+              className="fixed inset-0 sm:hidden block z-40 bg-black/20 brightness-75 backdrop-blur-[3.5px] opacity-0"
               onClick={() => setShowsidebar(false)}
               aria-hidden={!showSidebar}
             />
