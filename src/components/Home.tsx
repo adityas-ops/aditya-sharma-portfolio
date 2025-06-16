@@ -1,15 +1,62 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { LuInstagram } from "react-icons/lu";
 import { FiGithub } from "react-icons/fi";
 import { FiFacebook } from "react-icons/fi";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import Hero from "./sections/Hero";
 
 function Home() {
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState<string|null>(null);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [visible, setVisible] = useState(true);
   const [isShowShadow, setIsshowShadow] = useState<boolean>(false);
-  const [showSidebar,setShowsidebar] = useState<boolean>(false)
+  const [showSidebar, setShowsidebar] = useState<boolean>(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (showSidebar) {
+        // Enter animation sequence
+        gsap
+          .timeline()
+          .to(backdropRef.current, {
+            opacity: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          })
+          .to(
+            sidebarRef.current,
+            {
+              x: 0,
+              duration: 0.4,
+              ease: "power3.out",
+            },
+            "<0.1"
+          );
+      } else {
+        gsap
+          .timeline()
+          .to(sidebarRef.current, {
+            x: "100%",
+            duration: 0.3,
+            ease: "power2.in",
+          })
+          .to(
+            backdropRef.current,
+            {
+              opacity: 0,
+              duration: 0.2,
+              ease: "linear",
+            },
+            "<0.1"
+          );
+      }
+    },
+    { dependencies: [showSidebar], scope: sidebarRef }
+  );
 
   const handleScroll = (
     e: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -23,7 +70,7 @@ function Home() {
         behavior: "smooth",
       });
       window.history.pushState(null, "", "/");
-      setActiveSection("about"); // or your default section
+      // setActiveSection("about"); // or your default section
       return;
     }
 
@@ -87,32 +134,40 @@ function Home() {
             behavior: "smooth",
             block: "start",
           });
-          //   setActiveSection(hash);
+            setActiveSection(hash);
         }, 100);
       }
     }
   }, []);
 
+  console.log("active sction",activeSection)
+
   // Helper function to determine active link style
   const getLinkClass = (sectionId: string) => {
-    return `hover:text-[#64ffda] text-[13px] font-SFMono-Regular transition-colors ${
+    return `hover:text-[#64ffda]  text-[13px] font-SFMono-Regular transition-colors ${
+      activeSection === sectionId ? "text-[#64ffda] " : "text-white"
+    }`;
+  };
+
+  const getLinkClassMobile = (sectionId: string) => {
+    return `hover:text-[#64ffda] text-center text-[18px] font-SFMono-Regular transition-colors ${
       activeSection === sectionId ? "text-[#64ffda] " : "text-white"
     }`;
   };
 
   return (
-    <div className="w-screen h-screen">
+    <div className={`w-screen h-screen`}>
       {/* Header with hide/show on scroll */}
       <header
-        className={`h-[70px] px-[20px] z-50 backdrop-blur-[5px] backdrop-brightness-100 transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)]  w-full flex   flex-row  items-center  justify-between  fixed top-0  ${
+        className={`h-[70px] pt-[20px] px-[40px] z-50 backdrop-blur-[5px] backdrop-brightness-100 transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)]  w-full flex   flex-row  items-center  justify-between  fixed top-0  ${
           isShowShadow ? " shadow-md shadow-[#080d14]" : " shadow-none"
-        }   z-50 transition-transform duration-300 ${
+        }   z-50 transition-transform duration-500 ${
           visible ? "translate-y-0 " : "-translate-y-full"
         }`}
       >
         <button
           onClick={(e) => handleScroll(e, "#")}
-          className="cursor-pointer text-active-color duration-300 font-SFMono-Semibold text-3xl hover:text-shadow-active-color text-shadow-sm"
+          className="cursor-pointer text-active-color hover:text-shadow-xs font-SFMono-Semibold text-3xl hover:text-shadow-active-color hover:scale-[1.03] duration-300"
         >
           ADITYA
         </button>
@@ -182,11 +237,17 @@ function Home() {
           </div>
         </div>
         <div className="w-[60px]  h-[54px] sm:hidden flex justify-center items-center">
-          <button onClick={()=>setShowsidebar(!showSidebar)} className="relative cursor-pointer w-[30px] h-[2px] bg-active-color before:content-[''] before:absolute before:w-[36px] before:h-[2px] before:bg-active-color before:-top-2 before:right-0 after:content-[''] after:absolute after:w-[24px] after:h-[2px] after:bg-active-color after:top-2 after:right-0"></button>
+          <button
+            onClick={() => setShowsidebar(!showSidebar)}
+            className="relative cursor-pointer w-[30px] h-[2px] bg-active-color before:content-[''] before:absolute before:w-[36px] before:h-[2px] before:bg-active-color before:-top-2 before:right-0 after:content-[''] after:absolute after:w-[24px] after:h-[2px] after:bg-active-color after:top-2 after:right-0"
+          ></button>
         </div>
       </header>
-      <div className=" max-w-[95%] sm:max-w-[70%] mx-auto  ">
+      <div className=" max-w-[90%] sm:max-w-[70%] mx-auto  ">
         {/* Page Sections */}
+        <section className="">
+          <Hero/>
+        </section>
         <section id="about" className="min-h-screen pt-[70px] p-8">
           <h2 className="text-3xl font-bold mb-4">About</h2>
           {/* About content */}
@@ -245,13 +306,119 @@ function Home() {
           </div>
         </div>
         {/* sidebar in mobile view */}
-{
-  showSidebar && (
-    <div className="fixed inset-0 z-50 backdrop-blur-[5px] backdrop-brightness-75 transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)]">
-      {/* Your sidebar content would go here */}
-    </div>
-  )
-}
+        {showSidebar && (
+          <>
+            <div
+              ref={backdropRef}
+              className="fixed inset-0 sm:hidden block z-40 bg-black/30 backdrop-blur-[3.5px] opacity-0"
+              onClick={() => setShowsidebar(false)}
+              aria-hidden={!showSidebar}
+            />
+
+            <div
+              ref={sidebarRef}
+              className="fixed right-0 sm:hidden block top-0 z-50 h-full w-[80%] max-w-md bg-[#112240] transform translate-x-full shadow-xl"
+              aria-modal="true"
+              aria-hidden={!showSidebar}
+            >
+              <div className="pt-4 px-4 flex justify-end">
+                <button
+                  onClick={() => setShowsidebar(!showSidebar)}
+                  className="text-[#64ffda]  transition-colors"
+                  aria-label="Close sidebar"
+                >
+                  <svg
+                    width="42"
+                    height="42"
+                    viewBox="0 0 24 24"
+                    fill="#64ffda"
+                  >
+                    <path
+                      d="M18 6L6 18M6 6l12 12"
+                      stroke="currentColor"
+                      strokeWidth="1.2"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Your sidebar content goes here */}
+              <div className=" w-full h-full  flex justify-center  pt-[30%]">
+                <nav className="">
+                  <ul className="flex flex-col space-y-[35px]">
+                    <li>
+                      <a
+                        href="#about"
+                        onClick={(e) => {
+                          handleScroll(e, "about");
+                          setShowsidebar(false);
+                        }}
+                        className={getLinkClassMobile("about")}
+                      >
+                        <p className=" mb-1 text-[14px] text-active-color  font-SFMono-Regular ">
+                          01.
+                        </p>
+                        <p>About</p>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#experience"
+                        onClick={(e) => {
+                          handleScroll(e, "experience");
+                          setShowsidebar(false);
+                        }}
+                        className={`${getLinkClassMobile("experience")}`}
+                      >
+                        <p className=" text-active-color text-[14px] font-SFMono-Regular">
+                          02.
+                        </p>
+                        <p>Experience</p>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#work"
+                        onClick={(e) => {
+                          handleScroll(e, "work");
+                          setShowsidebar(false);
+                        }}
+                        className={getLinkClassMobile("work")}
+                      >
+                        <p className=" mb-1 text-[14px] text-active-color font-SFMono-Regular ">
+                          03.
+                        </p>
+                        <p>Work</p>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#contact"
+                        onClick={(e) => {
+                          handleScroll(e, "contact");
+                          setShowsidebar(false);
+                        }}
+                        className={getLinkClassMobile("contact")}
+                      >
+                        <p className=" text-[14px] text-active-color font-SFMono-Regular ">
+                          04.
+                        </p>
+                        <p>Contact</p>
+                      </a>
+                    </li>
+                    <li className="pt-[50px]">
+                      <button className="py-[12px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] z-20 relative px-[45px] border-[1px] border-active-color bg-[#112240]">
+                        <p className="text-[16px] font-SFMono-Regular text-active-color">
+                          Resume
+                        </p>
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
