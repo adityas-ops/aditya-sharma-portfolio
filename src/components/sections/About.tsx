@@ -33,7 +33,7 @@ function About() {
             gsap.from(el, {
               y: 30,
               opacity: 0,
-              duration: 0.8,
+              duration: 1.2,
               ease: "power3.out",
               delay: index * 0.4,
               scrollTrigger: {
@@ -95,8 +95,8 @@ function About() {
           >
             I focus on building performant cross-platform apps & websites while
             contributing to Projects. My expertise includes{" "}
-            <strong className=" text-active-color">UI/UX optimization</strong> ,{" "}
-            <strong className=" text-active-color">animations</strong> , and{" "}
+            <strong className=" text-active-color">UI/UX optimization</strong>,{" "}
+            <strong className=" text-active-color">animations</strong>, and{" "}
             <strong className=" text-active-color">
               frontend architecture
             </strong>
@@ -152,7 +152,7 @@ function About() {
         <div className=" w-full sm:w-fit flex justify-center sm:max-w-[50%] group">
           <div
             ref={(el) => {
-              aboutElementsRef.current[1] = el;
+              aboutElementsRef.current[5] = el;
             }}
             className="w-[300px] relative h-[300px] border-[2px] duration-300 rounded-md border-active-color"
           >
