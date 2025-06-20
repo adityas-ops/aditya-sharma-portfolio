@@ -29,7 +29,7 @@ function Hero() {
         </p>
         <p 
           ref={el => { heroElementsRef.current[1] = el; }}
-          className="text-[3rem] sm:text-[5rem] font-Calibre-Semibold text-[#ccd6f6]"
+          className="text-[3rem] mt-3 sm:text-[5rem] font-Calibre-Semibold text-[#ccd6f6]"
         >
           Aditya Sharma.
         </p>
@@ -59,7 +59,7 @@ function Hero() {
           {/* Background div - lower z-index */}
           <div className="z-10 h-[50px] w-[150px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
           {/* Button - higher z-index */}
-          <button className="h-[50px] w-[150px] rounded-[4px] duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] z-20 relative border-[1px] border-active-color bg-[#091930]">
+          <button className="h-[50px] cursor-pointer w-[150px] rounded-[4px] duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] z-20 relative border-[1px] border-active-color bg-[#091930]">
             <p className="text-[16px] font-SFMono-Medium text-active-color">
               Hire Me!
             </p>

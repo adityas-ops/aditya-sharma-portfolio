@@ -59,20 +59,7 @@
 
 }
 
-.restart-btn {
-  position: fixed;
-  bottom: 260px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #00ff00;
-  color: #000;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
 
-.restart-btn:hover {
-  background: #00cc00;
+.picture-overlay{
+  transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1)
 }
