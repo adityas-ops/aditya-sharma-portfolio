@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
+import Experience from "./sections/Experience";
 
 function Home() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -298,10 +299,9 @@ function Home() {
 
         <section
           id="experience"
-          className="min-h-screen pt-[70px] p-8 bg-gray-50"
+          className=""
         >
-          <h2 className="text-3xl font-bold mb-4">Experience</h2>
-          {/* Experience content */}
+        <Experience/>
         </section>
 
         <section id="work" className="min-h-screen pt-[70px] p-8">

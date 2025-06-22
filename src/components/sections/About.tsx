@@ -71,12 +71,12 @@ function About() {
 
       {/* main content */}
       <div className="w-full flex flex-col sm:flex-row justify-center sm:justify-start gap-[50px] items-center mt-[50px]">
-        <div className=" w-full sm:w-[55%]">
+        <div className=" w-full sm:w-[65%]">
           <p
             ref={(el) => {
               aboutElementsRef.current[1] = el;
             }}
-            className=" font-Calibre-Medium font-[500] text-justify sm:text-start text-[18px] text-[#8892b0]"
+            className=" font-Calibre-Medium font-[500] text-justify sm:text-start text-[20px] text-[#8892b0]"
           >
             Hello! I'm Aditya, a{" "}
             <strong className=" text-active-color">
@@ -91,7 +91,7 @@ function About() {
             ref={(el) => {
               aboutElementsRef.current[2] = el;
             }}
-            className=" font-Calibre-Medium text-[18px] text-justify sm:text-start text-[#8892b0] mt-4"
+            className=" font-Calibre-Medium text-[20px] text-justify sm:text-start text-[#8892b0] mt-4"
           >
             I focus on building performant cross-platform apps & websites while
             contributing to Projects. My expertise includes{" "}
@@ -107,7 +107,7 @@ function About() {
             ref={(el) => {
               aboutElementsRef.current[3] = el;
             }}
-            className="font-Calibre-Medium text-[18px] text-justify sm:text-start text-[#8892b0] mt-2"
+            className="font-Calibre-Medium text-[20px] text-justify sm:text-start text-[#8892b0] mt-2"
           >
             Here are technologies I frequently work with:
           </p>
