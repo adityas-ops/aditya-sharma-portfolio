@@ -33,12 +33,12 @@ function About() {
             gsap.from(el, {
               y: 30,
               opacity: 0,
-              duration: 1.2,
+              duration: 0.9,
               ease: "power3.out",
               delay: index * 0.4,
               scrollTrigger: {
                 trigger: aboutSectionRef.current,
-                start: "top 50%", 
+                start: "top 30%", 
                 toggleActions: "play none none none",
                 // markers: true // Uncomment for debugging scroll positions
               },
@@ -74,7 +74,7 @@ function About() {
         <div className=" w-full sm:w-[65%]">
           <p
             ref={(el) => {
-              aboutElementsRef.current[1] = el;
+              aboutElementsRef.current[2] = el;
             }}
             className=" font-Calibre-Medium font-[500] text-justify sm:text-start text-[20px] text-[#8892b0]"
           >
@@ -152,7 +152,7 @@ function About() {
         <div className=" w-full sm:w-fit flex justify-center sm:max-w-[50%] group">
           <div
             ref={(el) => {
-              aboutElementsRef.current[5] = el;
+              aboutElementsRef.current[1] = el;
             }}
             className="w-[300px] relative h-[300px] border-[2px] duration-300 rounded-md border-active-color"
           >

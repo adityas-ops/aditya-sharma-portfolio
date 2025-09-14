@@ -8,6 +8,8 @@ import gsap from "gsap";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Experience from "./sections/Experience";
+import Contact from "./sections/Contact";
+import Project from "./sections/Project";
 
 function Home() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -304,14 +306,14 @@ function Home() {
         <Experience/>
         </section>
 
-        <section id="work" className="min-h-screen pt-[70px] p-8">
-          <h2 className="text-3xl font-bold mb-4">Work</h2>
+        <section id="work" className="">
+          <Project/>
           {/* Work content */}
         </section>
 
-        <section id="contact" className="min-h-screen pt-[70px] p-8 bg-gray-50">
-          <h2 className="text-3xl font-bold mb-4">Contact</h2>
+        <section id="contact" className="min-h-screen pt-[70px] p-8">
           {/* Contact content */}
+          <Contact/>
         </section>
         {/* bottom sidebar */}
         <div className=" h-[350px] hidden   sm:flex flex-row justify-between  w-full fixed bottom-0 left-0 right-0 px-[25px]">
