@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SplashScreen from "./components/SplashScreen";
 import Home from "./components/Home";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
