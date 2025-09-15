@@ -1,5 +1,4 @@
 import { useRef } from 'react';
-import { FiGithub, FiExternalLink } from 'react-icons/fi';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
