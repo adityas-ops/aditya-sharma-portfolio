@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SplashScreen from "./components/SplashScreen";
 import Home from "./components/Home";
+import { Analytics } from "@vercel/analytics/next"
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -22,6 +23,7 @@ function App() {
       ) : (
        <Home/>
       )}
+      <Analytics/>
     </div>
   );
 }
