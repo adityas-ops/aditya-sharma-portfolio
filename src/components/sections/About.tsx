@@ -161,7 +161,7 @@ function About() {
               className="w-[300px] -translate-x-4 z-10 -translate-y-4 group-hover:-translate-y-5 group-hover:-translate-x-5 duration-300 rounded-md h-[295px] object-cover"
             />
             {/* Overlay with smooth opacity transition */}
-            <div className="absolute inset-0 picture-overlay bg-[#64ffda]/80 contrast-100   mix-blend-multiply -translate-y-4 -translate-x-4 rounded-md transition-opacity duration-300 group-hover:opacity-0"></div>
+            <div className="absolute inset-0 picture-overlay bg-[#64ffda]/80 contrast-100   mix-blend-multiply -translate-y-4 -translate-x-4 rounded-md transition-opacity duration-300 group-hover:opacity-0 hover:opacity-0 opacity-100"></div>
           </div>
         </div>
       </div>
