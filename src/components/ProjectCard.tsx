@@ -30,7 +30,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             className="w-full h-full object-cover rounded-lg"
             alt={project.title}
           />
-          <div className="absolute top-0 rounded-lg left-0 right-0 bottom-0 inset-0 picture-overlay bg-[#000000]/85 sm:bg-[#64ffda]/90 contrast-100 duration-300 group-hover:opacity-0 mix-blend-multiply sm:hover:opacity-0 opacity-100"></div>
+          <div className="absolute top-0 rounded-lg left-0 right-0 bottom-0 inset-0 picture-overlay bg-[#000000]/90 sm:bg-[#64ffda]/90 contrast-100 duration-300 group-hover:opacity-0 mix-blend-multiply sm:hover:opacity-0 opacity-100"></div>
         </div>
 
         {/* Feature content */}
@@ -39,14 +39,14 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             {project.overline}
           </p>
           <a href={project.external} target="_blank" rel="noopener noreferrer">
-            <p className={`text-[28px] font-Calibre-Semibold text-[#ccd6f6] text-start ${isEven ? " sm:text-start":"sm:text-end"} hover:text-active-color transition-colors duration-300`}>
+            <p className={`text-[28px] font-Calibre-Semibold mt-2 sm:mt-0 text-[#ccd6f6] text-start ${isEven ? " sm:text-start":"sm:text-end"} hover:text-active-color transition-colors duration-300`}>
               {project.title}
             </p>
           </a>
           <div className={`sm:p-[25px] w-full sm:bg-[#112240] sm:feature_card_shadow mt-[10px] rounded-sm text-start ${isEven ? " sm:text-start":"sm:text-end"} text-[18px] font-Calibre-Regular text-[#a8b2d1]`}>
             {project.description}
           </div>
-          <div className={`w-full flex mt-3 flex-row gap-[5px] sm:gap-[15px] items-center justify-start ${isEven ? "sm:justify-start":" sm:justify-end"}   flex-wrap`}>
+          <div className={`w-full flex mt-3 flex-row gap-[8px] sm:gap-[15px] items-center justify-start ${isEven ? "sm:justify-start":" sm:justify-end"}   flex-wrap`}>
             {project.tech.map((tech, index) => (
               <p key={index} className="text-[13px] text-[#a8b2d1] font-SFMono-Medium">
                 {tech}
