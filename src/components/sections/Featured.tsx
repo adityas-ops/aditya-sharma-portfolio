@@ -1,7 +1,10 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProjectCard from "../ProjectCard";
+
+gsap.registerPlugin(ScrollTrigger);
 // Dummy data for featured projects
 const featuredProjects = [
   {
@@ -38,29 +41,63 @@ const featuredProjects = [
 
 const Featured = () => {
   const revealProjects = useRef<(HTMLDivElement | null)[]>([]);
-
+  const containerRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
+    // Animation 1: Title
+    if (titleRef.current) {
+      gsap.set(titleRef.current, { y: 30, opacity: 0 });
+      gsap.to(titleRef.current, {
+        y: 0,
+        opacity: 1,
+        duration: 1.0,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        }
+      });
+    }
+
+    // Animation 2: Projects
     revealProjects.current.forEach((ref, i) => {
       if (ref) {
-        gsap.fromTo(
-          ref,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power2.out",
-            delay: 0.4 + i * 0.2,
+        gsap.set(ref, { y: 30, opacity: 0 });
+        gsap.to(ref, {
+          y: 0,
+          opacity: 1,
+          duration: 1.0,
+          ease: "power2.out",
+          delay: 0.2 + i * 0.2,
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
           }
-        );
+        });
       }
     });
-  }, []);
+
+    // Cleanup function
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.trigger === containerRef.current) {
+          trigger.kill();
+        }
+      });
+    };
+  }, { scope: containerRef });
 
   return (
-    <section id="projects" className="min-h-screen w-full pb-20">
-      <div className="w-full">       
+    <section ref={containerRef} id="projects" className="min-h-screen w-full pb-20">
+      <div className="w-full">
+        <div className="flex justify-center items-center mb-16">
+          <h2 ref={titleRef} className="text-[1.5rem] sm:text-[2rem] font-Calibre-Semibold text-[#ccd6f6]">
+            Featured Projects
+          </h2>
+        </div>       
         <div className="sm:space-y-32 space-y-11">
           {featuredProjects.map((project, index) => (
             <ProjectCard
