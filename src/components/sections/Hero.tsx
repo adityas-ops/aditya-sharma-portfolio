@@ -3,7 +3,27 @@ import { useRef } from "react";
 import gsap from "gsap";
 
 function Hero() {
-  const heroElementsRef = useRef<(HTMLParagraphElement | HTMLDivElement | null)[]>([]);
+  const heroElementsRef = useRef<(HTMLParagraphElement | HTMLDivElement | HTMLButtonElement | null)[]>([]);
+
+  const handleScroll = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+    sectionId: string
+  ): void => {
+    e.preventDefault();
+    console.log("Button clicked! Scrolling to:", sectionId);
+
+    const element: HTMLElement | null = document.getElementById(sectionId);
+    if (element) {
+      console.log("Element found, scrolling...");
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      window.history.pushState(null, "", `#${sectionId}`);
+    } else {
+      console.log("Element not found:", sectionId);
+    }
+  };
 
   useGSAP(() => {
     gsap.set(heroElementsRef.current, { y: 30, opacity: 0 });
@@ -52,19 +72,25 @@ function Hero() {
         </p>
       </div>
       <div className="pt-[50px]">
-        <div 
+        <button
+         onClick={(e) => handleScroll(e, "contact")}
           ref={el => { heroElementsRef.current[4] = el; }}
           className="relative"
         >
           {/* Background div - lower z-index */}
           <div className="z-10 h-[50px] w-[150px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
+          
           {/* Button - higher z-index */}
-          <button className="h-[50px] cursor-pointer w-[150px] rounded-[4px] duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] z-20 relative border-[1px] border-active-color bg-[#091930]">
+          <div
+           
+            className="h-[50px] cursor-pointer flex justify-center items-center w-[150px] rounded-[4px] duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] z-20 relative border-[1px] border-active-color bg-[#091930] pointer-events-auto"
+            // style={{ zIndex: 20 }}
+          >
             <p className="text-[16px] font-SFMono-Medium text-active-color">
               Hire Me!
             </p>
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
     </div>
   );

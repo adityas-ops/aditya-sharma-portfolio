@@ -19,7 +19,7 @@ function Home() {
   const [showSidebar, setShowsidebar] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
-  const navItemsRef = useRef<(HTMLLIElement | HTMLDivElement |HTMLButtonElement | null)[]>([]);
+  const navItemsRef = useRef<(HTMLLIElement| HTMLAnchorElement | HTMLDivElement |HTMLButtonElement | null)[]>([]);
 
   useGSAP(
     () => {
@@ -266,22 +266,23 @@ function Home() {
               </li>
             </ul>
           </nav>
-          <div
+          <a
             ref={(el) => {
               navItemsRef.current[5] = el;
             }}
+            target="_blank" href="https://drive.google.com/file/d/1GU_FTT1r-zsK6f7ConxVfUV-SXHEr1gS/view"
             className="relative"
           >
             {/* Background div - lower z-index */}
-            <div className="py-[6px] z-10 px-[14px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
+             <div className="py-[6px] z-10 px-[14px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
 
             {/* Button - higher z-index */}
-            <button className="py-[6px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] z-20 relative px-[14px] border-[1px] border-active-color bg-[#091930]">
+            <div className="py-[6px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] z-20 relative px-[14px] border-[1px] border-active-color bg-[#091930]">
               <p className="text-[13px] font-SFMono-Regular text-active-color">
                 Resume
               </p>
-            </button>
-          </div>
+            </div>
+       </a>
         </div>
         <div className="w-[40px]   h-[54px] sm:hidden flex justify-center items-center">
           <button
@@ -452,11 +453,11 @@ function Home() {
                       </a>
                     </li>
                     <li className="pt-[50px]">
-                      <button className="py-[12px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] z-20 relative px-[45px] border-[1px] border-active-color bg-[#112240]">
+                      <a target="_blank" href="https://drive.google.com/file/d/1GU_FTT1r-zsK6f7ConxVfUV-SXHEr1gS/view" className=" z-50 py-[12px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px]  relative px-[45px] border-[1px] border-active-color bg-[#112240]">
                         <p className="text-[16px] font-SFMono-Regular text-active-color">
                           Resume
                         </p>
-                      </button>
+                      </a>
                     </li>
                   </ul>
                 </nav>
