@@ -107,7 +107,7 @@ const Contact = () => {
     <section
       id="contact"
       ref={revealContainer}
-      className="max-w-[600px] mx-auto  text-center sm:mb-[50px] flex flex-col items-center justify-center min-h-[60vh]"
+      className="max-w-[600px] mx-auto relative  text-center sm:mb-[50px] flex flex-col items-center justify-center min-h-screen"
     >
       <h2
         ref={headlineRef}
@@ -143,6 +143,9 @@ const Contact = () => {
               Say Hello
           </div>
         </a>
+      </div>
+      <div className=" absolute bottom-0 left-0 right-0 text-white font-SFMono-Regular text-[12px]  pb-[20px]">
+       Built by Aditya Sharma & design inspired by <a href="https://brittanychiang.com/" target="_blank" className="text-active-color">Brittany Chiang</a>
       </div>
     </section>
   );

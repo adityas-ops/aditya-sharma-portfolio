@@ -91,13 +91,24 @@ const Featured = () => {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} id="projects" className="min-h-screen w-full pb-20">
+    <section ref={containerRef} id="projects" className="min-h-screen pt-[100px] sm:pt-[70px] w-full pb-20">
       <div className="w-full">
-        <div className="flex justify-center items-center mb-16">
+        {/* <div className="flex justify-center items-center mb-16">
           <h2 ref={titleRef} className="text-[1.5rem] sm:text-[2rem] font-Calibre-Semibold text-[#ccd6f6]">
             Featured Projects
           </h2>
-        </div>       
+        </div>  */}
+        <div ref={titleRef} className="flex justify-start mb-16 items-center gap-[20px]">
+        <div className="flex items-end">
+          <p
+            ref={titleRef}
+            className="relative before:content-['03.'] before:font-SFMono-Regular before:text-[1.25rem] sm:before:text-[1.5rem] before:text-active-color before:mr-[10px] leading-none text-[1.5rem] sm:text-[2rem] font-Calibre-Semibold text-[#ccd6f6] a font-[600]"
+          >
+            Some Things I’ve Built
+          </p>
+        </div>
+        <div className="sm:w-[150px] w-[36%] h-[1.5px] bg-[#233554]"></div>
+      </div>      
         <div className="sm:space-y-32 space-y-11">
           {featuredProjects.map((project, index) => (
             <ProjectCard

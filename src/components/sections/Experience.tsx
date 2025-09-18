@@ -137,7 +137,7 @@ function Experience() {
   }, { scope: revealContainer, dependencies: [prefersReducedMotion] });
 
   return (
-    <div ref={revealContainer} className="min-h-screen pt-[100px] sm:pt-[70px] max-w-full sm:max-w-[75%] mx-auto">
+    <div ref={revealContainer} className="min-h-screen pt-[150px] sm:pt-[70px] max-w-full sm:max-w-[75%] mx-auto">
       {/* section headline */}
       <div ref={headlineRef} className="flex justify-start items-center gap-[20px]">
         <div className="flex items-end">
