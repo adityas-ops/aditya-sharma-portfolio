@@ -1,0 +1,36 @@
+<svg
+  id="logo"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  viewBox="0 0 84 96"
+  className="w-[100px] h-[130px]"
+>
+  <g transform="translate(-8.000000, -2.000000)">
+    <g transform="translate(11.000000, 5.000000)">
+      {/* Background hexagon border */}
+      <polygon
+        className="hexagon-border"
+        fill="none"
+        stroke="#64ffda"
+        strokeWidth=""
+        points="39 0 0 22 0 67 39 90 78 68 78 23"
+      ></polygon>
+      {/* Letter A */}
+      <g transform="">
+        <text
+          className="letter-a"
+          x="48%"
+          y="50%"
+          font-size="48"
+          font-family="sans-serif"
+          font-weight=""
+          fill="#64ffda"
+          text-anchor="middle"
+          dominant-baseline="middle"
+        >
+          A
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -19,7 +19,15 @@ function Home() {
   const [showSidebar, setShowsidebar] = useState<boolean>(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
-  const navItemsRef = useRef<(HTMLLIElement| HTMLAnchorElement | HTMLDivElement |HTMLButtonElement | null)[]>([]);
+  const navItemsRef = useRef<
+    (
+      | HTMLLIElement
+      | HTMLAnchorElement
+      | HTMLDivElement
+      | HTMLButtonElement
+      | null
+    )[]
+  >([]);
 
   useGSAP(
     () => {
@@ -163,7 +171,7 @@ function Home() {
     }
   }, []);
 
-  console.log("active sction", activeSection);
+  // console.log("active sction", activeSection);
 
   // Helper function to determine active link style
   const getLinkClass = (sectionId: string) => {
@@ -178,6 +186,13 @@ function Home() {
     }`;
   };
 
+  const handleResumeClick = () => {
+    window.open(
+      "https://drive.google.com/file/d/1GU_FTT1r-zsK6f7ConxVfUV-SXHEr1gS/view",
+      "_blank"
+    );
+  };
+
   return (
     <div className={`w-screen h-screen`}>
       {/* Header with hide/show on scroll */}
@@ -189,13 +204,13 @@ function Home() {
         }`}
       >
         <button
-        ref={(el) => {
-                  navItemsRef.current[0] = el;
-                }}
+          ref={(el) => {
+            navItemsRef.current[0] = el;
+          }}
           onClick={(e) => handleScroll(e, "#")}
           className="cursor-pointer text-active-color hover:text-shadow-xs font-SFMono-Semibold text-3xl hover:text-shadow-active-color hover:scale-[1.03] duration-300"
         >
-          {showSidebar ? "A." : "ADITYA"}
+          <img src="assets/logo.svg" alt="logo" className="w-[50px] h-[50px]" />
         </button>
         <div className=" hidden sm:flex flex-row items-center gap-[25px]">
           <nav className="">
@@ -270,11 +285,12 @@ function Home() {
             ref={(el) => {
               navItemsRef.current[5] = el;
             }}
-            target="_blank" href="https://drive.google.com/file/d/1GU_FTT1r-zsK6f7ConxVfUV-SXHEr1gS/view"
+            target="_blank"
+            href="https://drive.google.com/file/d/1GU_FTT1r-zsK6f7ConxVfUV-SXHEr1gS/view"
             className="relative"
           >
             {/* Background div - lower z-index */}
-             <div className="py-[6px] z-10 px-[14px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
+            <div className="py-[6px] z-10 px-[14px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
 
             {/* Button - higher z-index */}
             <div className="py-[6px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] z-20 relative px-[14px] border-[1px] border-active-color bg-[#091930]">
@@ -282,7 +298,7 @@ function Home() {
                 Resume
               </p>
             </div>
-       </a>
+          </a>
         </div>
         <div className="w-[40px]   h-[54px] sm:hidden flex justify-center items-center">
           <button
@@ -300,21 +316,18 @@ function Home() {
           <About />
         </section>
 
-        <section
-          id="experience"
-          className=""
-        >
-        <Experience/>
+        <section id="experience" className="">
+          <Experience />
         </section>
 
         <section id="work" className="">
-          <Project/>
+          <Project />
           {/* Work content */}
         </section>
 
         <section id="contact" className="min-h-screen pt-[70px] p-8">
           {/* Contact content */}
-          <Contact/>
+          <Contact />
         </section>
         {/* bottom sidebar */}
         <div className=" h-[350px] hidden   sm:flex flex-row justify-between  w-full fixed bottom-0 left-0 right-0 px-[25px]">
@@ -452,12 +465,17 @@ function Home() {
                         <p>Contact</p>
                       </a>
                     </li>
-                    <li className="pt-[50px]">
-                      <a target="_blank" href="https://drive.google.com/file/d/1GU_FTT1r-zsK6f7ConxVfUV-SXHEr1gS/view" className=" z-50 py-[12px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px]  relative px-[45px] border-[1px] border-active-color bg-[#112240]">
+                    <li className="pt-[50px] w-[100px] h-[50px] ">
+                      <button
+                        onClick={() => {
+                          handleResumeClick();
+                        }}
+                        className=" z-50 py-[12px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px]  relative px-[45px] border-[1px] border-active-color bg-[#112240]"
+                      >
                         <p className="text-[16px] font-SFMono-Regular text-active-color">
                           Resume
                         </p>
-                      </a>
+                      </button>
                     </li>
                   </ul>
                 </nav>

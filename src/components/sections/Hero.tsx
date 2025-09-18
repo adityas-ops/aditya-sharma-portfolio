@@ -72,25 +72,18 @@ function Hero() {
         </p>
       </div>
       <div className="pt-[50px]">
-        <button
+        <div
          onClick={(e) => handleScroll(e, "contact")}
-          ref={el => { heroElementsRef.current[4] = el; }}
-          className="relative"
+          // ref={el => { heroElementsRef.current[4] = el; }}
+          // href="#contact"
+          className="relative email-link"
         >
-          {/* Background div - lower z-index */}
-          <div className="z-10 h-[50px] w-[150px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
-          
-          {/* Button - higher z-index */}
-          <div
-           
-            className="h-[50px] cursor-pointer flex justify-center items-center w-[150px] rounded-[4px] duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] z-20 relative border-[1px] border-active-color bg-[#091930] pointer-events-auto"
-            // style={{ zIndex: 20 }}
-          >
+         
             <p className="text-[16px] font-SFMono-Medium text-active-color">
               Hire Me!
             </p>
-          </div>
-        </button>
+    
+        </div>
       </div>
     </div>
   );

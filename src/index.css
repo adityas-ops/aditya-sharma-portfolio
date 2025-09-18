@@ -3,18 +3,15 @@
 @theme {
   --color-active-color: #64ffda;
   /* fonts */
-  --font-SFMono-Medium: 'SFMono-Medium';
-  --font-SFMono-Regular: 'SFMono-Regular';
-  --font-SFMono-Semibold: 'SFMono-Semibold';
-  --font-Calibre-Medium: 'Calibre-Medium';
-  --font-Calibre-Regular: 'Calibre-Regular';
-  --font-Calibre-Semibold: 'Calibre-Semibold';
+  --font-SFMono-Medium: "SFMono-Medium";
+  --font-SFMono-Regular: "SFMono-Regular";
+  --font-SFMono-Semibold: "SFMono-Semibold";
+  --font-Calibre-Medium: "Calibre-Medium";
+  --font-Calibre-Regular: "Calibre-Regular";
+  --font-Calibre-Semibold: "Calibre-Semibold";
   /* breakpoints */
-   --breakpoint-sm: 48.125rem
+  --breakpoint-sm: 48.125rem;
 }
-
-
-
 
 :root {
   background-color: #091930;
@@ -56,14 +53,36 @@
 .letter-a {
   fill: #64ffda;
   opacity: 0;
-
 }
 
-
-.picture-overlay{
-  transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1)
+.picture-overlay {
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.feature_card_shadow{
-   box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+.feature_card_shadow {
+  box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+}
+
+.email-link {
+  color: #64ffda;
+  background-color: transparent;
+  border: 1px solid #64ffda;
+  border-radius: 4px;
+  padding: 1.25rem 1.75rem;
+  font-size: 14px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  line-height: 1;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  text-decoration-skip-ink: auto;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  width: fit-content;
+}
+
+.email-link:hover{
+  outline: none;
+    box-shadow: 4px 4px 0 0 #64ffda;
+    transform: translate(-5px, -5px);
 }

@@ -1,7 +1,7 @@
 import { CiFolderOn } from "react-icons/ci";
 import { FiGithub } from "react-icons/fi";
 import { FiExternalLink } from "react-icons/fi";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,6 +19,7 @@ interface ProjectCardData {
 function ProjectList() {
   const revealProjects = useRef<(HTMLAnchorElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [showAll, setShowAll] = useState(false);
 
   const ProjectData: ProjectCardData[] = [
     {
@@ -131,10 +132,16 @@ function ProjectList() {
     },
   ];
 
-  useGSAP(() => {
-    gsap.set(revealProjects.current, { y: 30, opacity: 0 });
+  // Get the projects to display based on showAll state
+  const displayedProjects = showAll ? ProjectData : ProjectData.slice(0, 6);
 
-    gsap.to(revealProjects.current, {
+  useGSAP(() => {
+    // Filter out null refs and only animate the currently displayed projects
+    const validRefs = revealProjects.current.filter(ref => ref !== null);
+    
+    gsap.set(validRefs, { y: 30, opacity: 0 });
+
+    gsap.to(validRefs, {
       y: 0,
       opacity: 1,
       duration: 0.8,
@@ -146,7 +153,7 @@ function ProjectList() {
         toggleActions: "play none none reverse",
       },
     });
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [showAll, displayedProjects.length] });
 
   return (
     <div ref={containerRef} className=" h-full w-full pt-[40px] sm:pt-[100px]">
@@ -156,11 +163,14 @@ function ProjectList() {
         </h2>
       </div>
       <div className="pt-[20px] sm:pt-[60px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[20px]">
-        {ProjectData.map((item: ProjectCardData, index: number) => {
+        {displayedProjects.map((item: ProjectCardData, index: number) => {
           return (
             <a
               key={item.id}
               ref={(el) => {
+                if (revealProjects.current.length <= index) {
+                  revealProjects.current.length = index + 1;
+                }
                 revealProjects.current[index] = el;
               }}
               target="_black"
@@ -195,6 +205,16 @@ function ProjectList() {
             </a>
           );
         })}
+      </div>
+      
+      {/* Show More Button */}
+      <div className="flex justify-center mt-[50px]">
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="px-8 py-3 border border-[#64ffda] text-[#64ffda] font-SFMono-Regular text-sm hover:bg-[#64ffda] hover:text-[#08192F] hover:bg-opacity-10 transition-all duration-300 rounded-sm"
+        >
+          {showAll ? "Show Less" : "Show More"}
+        </button>
       </div>
     </div>
   );
