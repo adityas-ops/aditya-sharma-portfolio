@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 
@@ -99,4 +99,4 @@ const SplashScreen = () => {
   );
 };
 
-export default SplashScreen;
+export default memo(SplashScreen);

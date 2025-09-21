@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Suspense, lazy, memo, useCallback } from "react";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { LuInstagram } from "react-icons/lu";
 import { FiGithub } from "react-icons/fi";
 import { FiFacebook } from "react-icons/fi";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Hero from "./sections/Hero";
-import About from "./sections/About";
-import Experience from "./sections/Experience";
-import Contact from "./sections/Contact";
-import Project from "./sections/Project";
+
+// Lazy load sections for better performance
+const Hero = lazy(() => import("./sections/Hero"));
+const About = lazy(() => import("./sections/About"));
+const Experience = lazy(() => import("./sections/Experience"));
+const Contact = lazy(() => import("./sections/Contact"));
+const Project = lazy(() => import("./sections/Project"));
 
 function Home() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -89,7 +91,7 @@ function Home() {
     { dependencies: [showSidebar], scope: sidebarRef }
   );
 
-  const handleScroll = (
+  const handleScroll = useCallback((
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     sectionId: string
   ): void => {
@@ -101,7 +103,6 @@ function Home() {
         behavior: "smooth",
       });
       window.history.pushState(null, "", "/");
-      // setActiveSection("about"); // or your default section
       return;
     }
 
@@ -114,7 +115,7 @@ function Home() {
       window.history.pushState(null, "", `#${sectionId}`);
       setActiveSection(sectionId);
     }
-  };
+  }, []);
 
   // Handle scroll events for header visibility and active section
   useEffect(() => {
@@ -146,7 +147,7 @@ function Home() {
 
   useEffect(() => {
     const currentScrollPos = window.pageYOffset;
-    console.log("currentSCrooo", currentScrollPos);
+    // console.log("currentSCrooo", currentScrollPos);
     if (currentScrollPos > 20) {
       setIsshowShadow(true);
     } else {
@@ -186,12 +187,12 @@ function Home() {
     }`;
   };
 
-  const handleResumeClick = () => {
+  const handleResumeClick = useCallback(() => {
     window.open(
       "https://drive.google.com/file/d/1GU_FTT1r-zsK6f7ConxVfUV-SXHEr1gS/view",
       "_blank"
     );
-  };
+  }, []);
 
   return (
     <div className={`w-screen h-screen`}>
@@ -310,24 +311,32 @@ function Home() {
       <div className=" max-w-[90%] sm:max-w-[70%] mx-auto  ">
         {/* Page Sections */}
         <section className="">
-          <Hero />
+          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+            <Hero />
+          </Suspense>
         </section>
         <section id="about" className="">
-          <About />
+          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+            <About />
+          </Suspense>
         </section>
 
         <section id="experience" className="">
-          <Experience />
+          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+            <Experience />
+          </Suspense>
         </section>
 
         <section id="work" className="">
-          <Project />
-          {/* Work content */}
+          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+            <Project />
+          </Suspense>
         </section>
 
         <section id="contact" className="min-h-screen pt-[70px] p-8">
-          {/* Contact content */}
-          <Contact />
+          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+            <Contact />
+          </Suspense>
         </section>
         {/* bottom sidebar */}
         <div className=" h-[350px] hidden   sm:flex flex-row justify-between  w-full fixed bottom-0 left-0 right-0 px-[25px]">
@@ -488,4 +497,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default memo(Home);

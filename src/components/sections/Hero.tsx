@@ -1,29 +1,25 @@
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, memo, useCallback } from "react";
 import gsap from "gsap";
 
 function Hero() {
   const heroElementsRef = useRef<(HTMLParagraphElement | HTMLDivElement | HTMLButtonElement | null)[]>([]);
 
-  const handleScroll = (
+  const handleScroll = useCallback((
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     sectionId: string
   ): void => {
     e.preventDefault();
-    console.log("Button clicked! Scrolling to:", sectionId);
 
     const element: HTMLElement | null = document.getElementById(sectionId);
     if (element) {
-      console.log("Element found, scrolling...");
       element.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
       window.history.pushState(null, "", `#${sectionId}`);
-    } else {
-      console.log("Element not found:", sectionId);
     }
-  };
+  }, []);
 
   useGSAP(() => {
     gsap.set(heroElementsRef.current, { y: 30, opacity: 0 });
@@ -89,4 +85,4 @@ function Hero() {
   );
 }
 
-export default Hero;
+export default memo(Hero);

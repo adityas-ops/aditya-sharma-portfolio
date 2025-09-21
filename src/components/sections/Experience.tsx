@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, memo } from "react";
 import { BiRightArrow } from "react-icons/bi";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -222,4 +222,4 @@ function Experience() {
   );
 }
 
-export default Experience;
+export default memo(Experience);
