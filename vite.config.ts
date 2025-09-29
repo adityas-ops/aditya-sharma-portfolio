@@ -20,8 +20,13 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     minify: 'esbuild',
     assetsDir: 'assets',
+    outDir: 'dist',
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'gsap', '@gsap/react']
+  },
+  server: {
+    port: 3000,
+    host: true
   }
 })
