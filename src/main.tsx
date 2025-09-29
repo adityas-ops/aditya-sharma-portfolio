@@ -4,8 +4,8 @@ import './index.css'
 import App from './App.tsx'
 import './font.css'
 
-// Force clear all caches and reload if needed
-const forceClearCache = () => {
+// Nuclear option - clear everything and reload if needed
+const nuclearCacheClear = () => {
   try {
     // Clear localStorage
     localStorage.clear();
@@ -31,14 +31,25 @@ const forceClearCache = () => {
       });
     }
     
-    console.log('All caches and storage cleared');
+    // Force reload if this is not the first visit
+    const isFirstVisit = !sessionStorage.getItem('visited');
+    if (!isFirstVisit) {
+      console.log('Force reloading to clear cache...');
+      window.location.reload();
+      return;
+    }
+    sessionStorage.setItem('visited', 'true');
+    
+    console.log('Nuclear cache clear completed');
   } catch (error) {
     console.log('Cache clearing error:', error);
+    // If anything fails, reload the page
+    window.location.reload();
   }
 };
 
-// Clear everything on app start
-forceClearCache();
+// Execute nuclear cache clear
+nuclearCacheClear();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
