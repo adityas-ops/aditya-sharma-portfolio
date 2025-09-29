@@ -14,7 +14,10 @@ export default defineConfig({
           gsap: ['gsap', '@gsap/react'],
           icons: ['react-icons'],
           analytics: ['@vercel/analytics', '@vercel/speed-insights']
-        }
+        },
+        entryFileNames: `assets/[name]-[hash].js`,
+        chunkFileNames: `assets/[name]-[hash].js`,
+        assetFileNames: `assets/[name]-[hash].[ext]`
       }
     },
     chunkSizeWarningLimit: 1000,
@@ -27,6 +30,11 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    host: true
+    host: true,
+    headers: {
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    }
   }
 })
