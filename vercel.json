@@ -4,7 +4,7 @@
   "framework": "vite",
   "rewrites": [
     {
-      "source": "/((?!assets|fonts|favicon.ico|robots.txt|sitemap.xml|manifest.json|sw.js|googlef3afe425c13f9118.html|_headers).*)",
+      "source": "/((?!assets|fonts|favicon.ico|robots.txt|sitemap.xml|manifest.json|googlef3afe425c13f9118.html|_headers).*)",
       "destination": "/index.html"
     }
   ],

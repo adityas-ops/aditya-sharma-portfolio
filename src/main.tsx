@@ -4,46 +4,41 @@ import './index.css'
 import App from './App.tsx'
 import './font.css'
 
-// Clear all caches on app start
-const clearAllCaches = async () => {
+// Force clear all caches and reload if needed
+const forceClearCache = () => {
   try {
-    // Clear service worker cache
-    if ('serviceWorker' in navigator) {
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      for (let registration of registrations) {
-        await registration.unregister();
-      }
-    }
+    // Clear localStorage
+    localStorage.clear();
     
-    // Clear browser cache
+    // Clear sessionStorage
+    sessionStorage.clear();
+    
+    // Clear all caches
     if ('caches' in window) {
-      const cacheNames = await caches.keys();
-      await Promise.all(
-        cacheNames.map(cacheName => caches.delete(cacheName))
-      );
+      caches.keys().then(cacheNames => {
+        cacheNames.forEach(cacheName => {
+          caches.delete(cacheName);
+        });
+      });
     }
     
-    console.log('All caches cleared');
+    // Unregister all service workers
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(registration => {
+          registration.unregister();
+        });
+      });
+    }
+    
+    console.log('All caches and storage cleared');
   } catch (error) {
-    console.log('Cache clearing failed:', error);
+    console.log('Cache clearing error:', error);
   }
 };
 
-// Clear caches before app starts
-clearAllCaches();
-
-// Register service worker for better caching
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((registration) => {
-        console.log('SW registered: ', registration);
-      })
-      .catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError);
-      });
-  });
-}
+// Clear everything on app start
+forceClearCache();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
