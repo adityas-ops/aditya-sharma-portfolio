@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: '/',
   build: {
     rollupOptions: {
       output: {
@@ -18,6 +19,7 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000,
     minify: 'esbuild',
+    assetsDir: 'assets',
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'gsap', '@gsap/react']

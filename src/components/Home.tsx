@@ -211,7 +211,7 @@ function Home() {
           onClick={(e) => handleScroll(e, "#")}
           className="cursor-pointer text-active-color hover:text-shadow-xs font-SFMono-Semibold text-3xl hover:text-shadow-active-color hover:scale-[1.03] duration-300"
         >
-          <img src="assets/logo.svg" alt="logo" className="w-[50px] h-[50px]" />
+          <img src="/assets/logo.svg" alt="logo" className="w-[50px] h-[50px]" />
         </button>
         <div className=" hidden sm:flex flex-row items-center gap-[25px]">
           <nav className="">
