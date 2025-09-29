@@ -339,8 +339,8 @@ function Home() {
           </Suspense>
         </section>
         {/* bottom sidebar */}
-        <div className=" h-[350px] hidden   sm:flex flex-row justify-between  w-full fixed bottom-0 left-0 right-0 px-[25px]">
-          <div className="  h-full w-[70px]  flex flex-col items-center gap-[25px] justify-end">
+        {/*<div className=" h-[350px] hidden   sm:flex flex-row justify-between  w-full fixed bottom-0 left-0 right-0 px-[25px]"> */}
+          <div className=" h-[350px] mx-[25px] hidden w-[70px] fixed bottom-0 left-0   sm:flex flex-col items-center gap-[25px] justify-end">
             <a href="https://github.com/adityas-ops" target="_blank">
               <FiGithub className=" text-[20px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color" />
             </a>
@@ -360,7 +360,7 @@ function Home() {
 
             <div className="w-[1px] h-[90px] bg-white"></div>
           </div>
-          <div className="  h-full w-[70px] relative  flex flex-col items-center gap-[25px] justify-end">
+          <div className="h-[350px] mx-[25px] hidden w-[70px] fixed bottom-0 right-0   sm:flex flex-col items-center gap-[25px] justify-end">
             <div className=" rotate-90 hover:text-active-color hover:translate-y-[-4px] duration-300 absolute top-[100px]">
               <a
                 className="text-[13px] hover:text-active-color   text-white font-SFMono-Regular"
@@ -372,7 +372,7 @@ function Home() {
             </div>
             <div className="w-[1px] h-[90px] bg-white"></div>
           </div>
-        </div>
+        {/* </div> */}
         {/* sidebar in mobile view */}
         {showSidebar && (
           <>
