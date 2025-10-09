@@ -21,7 +21,7 @@ const featuredProjects = [
     id: 2,
     title: "AI-Power Interview App",
     description: "Interview Guru is a React Native app that uses AI to generate personalized interview questions, provide real-time practice, and deliver performance reports with learning suggestions. It supports progress tracking and secure data storage with Firebase and Redux.",
-    tech: ["React-Native", "Firebase", "Redux-Toolkit","zod","ai-sdk/google"],
+    tech: ["React-Native", "Firebase","ai-sdk/google", "Redux-Toolkit","zod"],
     github: "https://github.com/adityas-ops/interview-guru",
     external: "https://drive.google.com/file/d/1ETQvMuV_1GSi4bcwlpr1rigzE57RTJL9/view",
     image: "/assets/feature/interview_guru.jpeg",

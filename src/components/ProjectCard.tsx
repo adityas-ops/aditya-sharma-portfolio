@@ -30,7 +30,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             className="w-full h-full object-cover rounded-lg"
             alt={project.title}
           />
-          <div className="absolute top-0 rounded-lg left-0 right-0 bottom-0 inset-0 picture-overlay bg-[#000000]/90 sm:bg-[#64ffda]/90 contrast-100 duration-300 group-hover:opacity-0 mix-blend-multiply sm:hover:opacity-0 opacity-100"></div>
+          <div className="absolute top-0 rounded-lg left-0 right-0 bottom-0 inset-0 picture-overlay bg-black bg-opacity-90 sm:bg-teal-400 sm:bg-opacity-90 contrast-100 duration-300 group-hover:opacity-0 mix-blend-multiply sm:hover:opacity-0 opacity-100"></div>
         </div>
 
         {/* Feature content */}
