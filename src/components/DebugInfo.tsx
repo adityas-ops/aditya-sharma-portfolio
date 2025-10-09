@@ -15,7 +15,7 @@ const DebugInfo = () => {
   };
 
   useEffect(() => {
-    console.log('🔍 Debug Info:', debugInfo);
+    // console.log('🔍 Debug Info:', debugInfo);
     
     // Log any failed resource loads
     const observer = new PerformanceObserver((list) => {

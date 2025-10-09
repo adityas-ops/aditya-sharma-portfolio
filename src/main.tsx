@@ -10,6 +10,24 @@ const debugAndManageCache = () => {
   console.log('📍 Current URL:', window.location.href);
   console.log('🕒 Timestamp:', new Date().toISOString());
   
+  // Force cache busting for returning users
+  const isReturningUser = localStorage.getItem('hasVisited') || sessionStorage.getItem('hasVisited');
+  if (isReturningUser) {
+    console.log('🔄 Returning user detected, forcing cache refresh...');
+    
+    // Add cache-busting parameter to force fresh load
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has('v')) {
+      url.searchParams.set('v', Date.now().toString());
+      window.location.replace(url.toString());
+      return;
+    }
+  }
+  
+  // Mark as visited
+  localStorage.setItem('hasVisited', 'true');
+  sessionStorage.setItem('hasVisited', 'true');
+  
   try {
     // Log current storage state
     console.log('📦 localStorage keys:', Object.keys(localStorage));

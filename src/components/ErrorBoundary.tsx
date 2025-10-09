@@ -14,7 +14,7 @@ class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
-    console.log('🛡️ ErrorBoundary initialized');
+    // console.log('🛡️ ErrorBoundary initialized');
   }
 
   static getDerivedStateFromError(error: Error): State {
@@ -31,10 +31,10 @@ class ErrorBoundary extends Component<Props, State> {
     
     // Clear problematic storage on error
     try {
-      console.log('🧹 Clearing storage due to error...');
+      // console.log('🧹 Clearing storage due to error...');
       localStorage.removeItem('visited');
       sessionStorage.removeItem('visited');
-      console.log('✅ Storage cleared');
+      // console.log('✅ Storage cleared');
     } catch (e) {
       console.error('❌ Failed to clear storage:', e);
     }
@@ -42,7 +42,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      console.log('🚨 Rendering error fallback UI');
+      // console.log('🚨 Rendering error fallback UI');
       // You can render any custom fallback UI
       return this.props.fallback || (
         <div className="w-full h-full flex flex-col justify-center items-center bg-[#020C1B] text-white">
@@ -55,7 +55,7 @@ class ErrorBoundary extends Component<Props, State> {
             </div>
             <button
               onClick={() => {
-                console.log('🔄 User clicked refresh button');
+                // console.log('🔄 User clicked refresh button');
                 // Clear all storage and reload
                 localStorage.clear();
                 sessionStorage.clear();
@@ -70,7 +70,7 @@ class ErrorBoundary extends Component<Props, State> {
       );
     }
 
-    console.log('✅ ErrorBoundary rendering children normally');
+    // console.log('✅ ErrorBoundary rendering children normally');
     return this.props.children;
   }
 }

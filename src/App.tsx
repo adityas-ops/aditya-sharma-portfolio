@@ -1,7 +1,7 @@
 import { useEffect, useState, Suspense, lazy } from "react";
 import SplashScreen from "./components/SplashScreen";
 import ErrorBoundary from "./components/ErrorBoundary";
-import DebugInfo from "./components/DebugInfo";
+// import DebugInfo from "./components/DebugInfo";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import PerformanceMonitor from "./components/PerformanceMonitor"
@@ -13,26 +13,25 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    console.log('🎬 App component mounted');
-    console.log('⏰ Starting splash screen timer...');
+    // console.log('🎬 App component mounted');
+    // console.log('⏰ Starting splash screen timer...');
     
     const timer = setTimeout(() => {
-      console.log('⏰ Splash screen timer completed, showing main app');
+      // console.log('⏰ Splash screen timer completed, showing main app');
       setShowSplash(false);
     }, 4000);
 
     return () => {
-      console.log('🧹 Cleaning up splash screen timer');
+      // console.log('🧹 Cleaning up splash screen timer');
       clearTimeout(timer);
     };
   }, []);
 
-  console.log('🔄 App component rendering, showSplash:', showSplash);
+  // console.log('🔄 App component rendering, showSplash:', showSplash);
 
   return (
     <ErrorBoundary>
       <div className="h-screen w-screen">
-        <DebugInfo />
         {showSplash ? (
           <div className=" w-full h-full flex justify-center items-center">
             <SplashScreen />
