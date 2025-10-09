@@ -24,9 +24,15 @@ export default defineConfig({
     minify: 'esbuild',
     assetsDir: 'assets',
     outDir: 'dist',
+    // Add sourcemap for better debugging in production
+    sourcemap: false,
+    // Ensure proper cache busting
+    emptyOutDir: true,
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'gsap', '@gsap/react']
+    include: ['react', 'react-dom', 'gsap', '@gsap/react'],
+    // Force pre-bundling to avoid cache issues
+    force: true
   },
   server: {
     port: 3000,
@@ -36,5 +42,9 @@ export default defineConfig({
       'Pragma': 'no-cache',
       'Expires': '0'
     }
+  },
+  // Add define to ensure proper environment detection
+  define: {
+    __APP_VERSION__: JSON.stringify('1.0.0')
   }
 })

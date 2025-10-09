@@ -4,52 +4,55 @@ import './index.css'
 import App from './App.tsx'
 import './font.css'
 
-// Nuclear option - clear everything and reload if needed
-const nuclearCacheClear = () => {
+// Safe cache management - only clear problematic caches without forcing reloads
+const safeCacheManagement = () => {
   try {
-    // Clear localStorage
-    localStorage.clear();
+    // Only clear specific problematic data, not everything
+    const problematicKeys = ['visited', 'cache-version', 'app-state'];
     
-    // Clear sessionStorage
-    sessionStorage.clear();
+    // Clear only problematic localStorage items
+    problematicKeys.forEach(key => {
+      localStorage.removeItem(key);
+    });
     
-    // Clear all caches
+    // Clear only problematic sessionStorage items
+    problematicKeys.forEach(key => {
+      sessionStorage.removeItem(key);
+    });
+    
+    // Clear old caches that might cause issues
     if ('caches' in window) {
       caches.keys().then(cacheNames => {
         cacheNames.forEach(cacheName => {
-          caches.delete(cacheName);
+          // Only clear old cache versions, not current ones
+          if (cacheName.includes('old') || cacheName.includes('v1') || cacheName.includes('legacy')) {
+            caches.delete(cacheName);
+          }
         });
       });
     }
     
-    // Unregister all service workers
+    // Unregister old service workers only
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(registrations => {
         registrations.forEach(registration => {
-          registration.unregister();
+          // Only unregister if it's an old version
+          if (registration.scope.includes('old') || registration.scope.includes('v1')) {
+            registration.unregister();
+          }
         });
       });
     }
     
-    // Force reload if this is not the first visit
-    const isFirstVisit = !sessionStorage.getItem('visited');
-    if (!isFirstVisit) {
-      console.log('Force reloading to clear cache...');
-      window.location.reload();
-      return;
-    }
-    sessionStorage.setItem('visited', 'true');
-    
-    console.log('Nuclear cache clear completed');
+    console.log('Safe cache management completed');
   } catch (error) {
-    console.log('Cache clearing error:', error);
-    // If anything fails, reload the page
-    window.location.reload();
+    console.log('Cache management error:', error);
+    // Don't reload on error, just log it
   }
 };
 
-// Execute nuclear cache clear
-nuclearCacheClear();
+// Execute safe cache management
+safeCacheManagement();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

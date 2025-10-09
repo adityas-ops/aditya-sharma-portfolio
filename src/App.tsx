@@ -1,5 +1,6 @@
 import { useEffect, useState, Suspense, lazy } from "react";
 import SplashScreen from "./components/SplashScreen";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 import PerformanceMonitor from "./components/PerformanceMonitor"
@@ -19,24 +20,26 @@ function App() {
   }, []);
 
   return (
-    <div className="h-screen w-screen">
-      {showSplash ? (
-        <div className=" w-full h-full flex justify-center items-center">
-          <SplashScreen />
-        </div>
-      ) : (
-        <Suspense fallback={
-          <div className="w-full h-full flex justify-center items-center bg-[#020C1B]">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#64ffda]"></div>
+    <ErrorBoundary>
+      <div className="h-screen w-screen">
+        {showSplash ? (
+          <div className=" w-full h-full flex justify-center items-center">
+            <SplashScreen />
           </div>
-        }>
-          <Home/>
-        </Suspense>
-      )}
-      <Analytics/>
-      <SpeedInsights/>
-      <PerformanceMonitor/>
-    </div>
+        ) : (
+          <Suspense fallback={
+            <div className="w-full h-full flex justify-center items-center bg-[#020C1B]">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#64ffda]"></div>
+            </div>
+          }>
+            <Home/>
+          </Suspense>
+        )}
+        <Analytics/>
+        <SpeedInsights/>
+        <PerformanceMonitor/>
+      </div>
+    </ErrorBoundary>
   );
 }
 
