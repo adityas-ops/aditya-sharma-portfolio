@@ -28,6 +28,8 @@ export default defineConfig({
     sourcemap: false,
     // Ensure proper cache busting
     emptyOutDir: true,
+    // Ensure consistent asset naming
+    assetsInlineLimit: 0,
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'gsap', '@gsap/react'],
@@ -46,5 +48,7 @@ export default defineConfig({
   // Add define to ensure proper environment detection
   define: {
     __APP_VERSION__: JSON.stringify('1.0.0')
-  }
+  },
+  // Ensure proper asset handling
+  assetsInclude: ['**/*.woff2', '**/*.woff', '**/*.ttf'],
 })
