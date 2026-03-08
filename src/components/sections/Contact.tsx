@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, memo } from "react";
+import React, { useEffect, useRef, memo, lazy, Suspense } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Email configuration
+const ContactGlobe = lazy(() => import("../three/ContactGlobe"));
+
 const email = "adityakushinagar123@gmail.com";
 
-// Custom hook for reduced motion preference
 const usePrefersReducedMotion = () => {
   const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(false);
 
@@ -41,7 +40,6 @@ const Contact = () => {
         return;
       }
 
-      // Animation 1: "What's Next?" headline
       if (headlineRef.current) {
         gsap.set(headlineRef.current, { y: 30, opacity: 0 });
         gsap.to(headlineRef.current, {
@@ -57,7 +55,6 @@ const Contact = () => {
         });
       }
 
-      // Animation 2: "Get In Touch" title
       if (titleRef.current) {
         gsap.set(titleRef.current, { y: 30, opacity: 0 });
         gsap.to(titleRef.current, {
@@ -74,7 +71,6 @@ const Contact = () => {
         });
       }
 
-      // Animation 3: Content (paragraph and button)
       if (contentRef.current) {
         gsap.set(contentRef.current, { y: 30, opacity: 0 });
         gsap.to(contentRef.current, {
@@ -91,7 +87,6 @@ const Contact = () => {
         });
       }
 
-      // Cleanup function
       return () => {
         ScrollTrigger.getAll().forEach((trigger) => {
           if (trigger.trigger === revealContainer.current) {
@@ -100,30 +95,35 @@ const Contact = () => {
         });
       };
     },
-    { scope: revealContainer, dependencies: [prefersReducedMotion] }
+    { scope: revealContainer, dependencies: [prefersReducedMotion] },
   );
 
   return (
     <section
       id="contact"
       ref={revealContainer}
-      className="max-w-[600px] mx-auto relative  text-center sm:mb-[50px] flex flex-col items-center justify-center min-h-screen"
+      className="max-w-[600px] mx-auto relative text-center sm:mb-[50px] flex flex-col items-center justify-center min-h-screen"
     >
+      {/* 3D Globe Background */}
+      <Suspense fallback={null}>
+        <ContactGlobe />
+      </Suspense>
+
       <h2
         ref={headlineRef}
-        className="block mb-5 text-[#64ffda] font-SFMono-Regular text-[16px] font-normal before:content-['04.'] before:mr-2 before:text-[#64ffda] before:text-[14px]"
+        className="block mb-5 text-[#64ffda] font-SFMono-Regular text-[16px] font-normal before:content-['04.'] before:mr-2 before:text-[#64ffda] before:text-[14px] relative z-10"
       >
         What's Next?
       </h2>
 
       <h2
         ref={titleRef}
-        className="text-[clamp(40px,5vw,60px)] font-bold text-white mb-4"
+        className="text-[clamp(40px,5vw,60px)] font-bold text-white mb-4 relative z-10 hero-gradient-text"
       >
         Get In Touch
       </h2>
 
-      <div ref={contentRef}>
+      <div ref={contentRef} className="relative z-10">
         <p className="text-[#a8b2d1] text-[17px] leading-[1.3] mb-12">
           Although I'm not currently looking for any new opportunities, my inbox
           is always open. Whether you have a question or just want to say hi,
@@ -134,18 +134,23 @@ const Contact = () => {
           className="relative cursor-pointer inline-block w-[150px] h-[50px] group"
         >
           {/* Background div - lower z-index */}
-          <div className="absolute inset-0 z-10  rounded-[4px] border-[1px] border-active-color bg-active-color"></div>
+          <div className="absolute inset-0 z-10 rounded-[4px] border-[1px] border-active-color bg-active-color"></div>
 
           {/* Button - higher z-index */}
-          <div
-            className="absolute z-50 inset-0 text-[16px] font-SFMono-Medium text-active-color cursor-pointer w-f flex justify-center items-center rounded-[4px] duration-300 group-hover:translate-x-[-4px] group-hover:translate-y-[-4px]  border-[1px] border-active-color bg-[#091930]"
-          >
-              Say Hello
+          <div className="absolute z-50 inset-0 text-[16px] font-SFMono-Medium text-active-color cursor-pointer w-f flex justify-center items-center rounded-[4px] duration-300 group-hover:translate-x-[-4px] group-hover:translate-y-[-4px] border-[1px] border-active-color bg-[#091930] neon-border-hover">
+            Say Hello
           </div>
         </a>
       </div>
-      <div className=" absolute bottom-0 left-0 right-0 text-white font-SFMono-Regular text-[12px]  pb-[20px]">
-       Built by Aditya Sharma & design inspired by <a href="https://brittanychiang.com/" target="_blank" className="text-active-color">Brittany Chiang</a>
+      <div className="absolute bottom-0 left-0 right-0 text-white font-SFMono-Regular text-[12px] pb-[20px] z-10">
+        Built by Aditya Sharma & design inspired by{" "}
+        <a
+          href="https://brittanychiang.com/"
+          target="_blank"
+          className="text-active-color neon-text"
+        >
+          Brittany Chiang
+        </a>
       </div>
     </section>
   );

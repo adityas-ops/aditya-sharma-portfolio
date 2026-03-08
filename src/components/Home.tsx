@@ -1,4 +1,12 @@
-import React, { useEffect, useRef, useState, Suspense, lazy, memo, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  Suspense,
+  lazy,
+  memo,
+  useCallback,
+} from "react";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { LuInstagram } from "react-icons/lu";
 import { FiGithub } from "react-icons/fi";
@@ -12,6 +20,11 @@ const About = lazy(() => import("./sections/About"));
 const Experience = lazy(() => import("./sections/Experience"));
 const Contact = lazy(() => import("./sections/Contact"));
 const Project = lazy(() => import("./sections/Project"));
+
+// Lazy load Three.js components
+const ParticleField = lazy(() => import("./three/ParticleField"));
+
+const CustomCursor = lazy(() => import("./three/CustomCursor"));
 
 function Home() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
@@ -46,7 +59,7 @@ function Home() {
         delay: 0.5,
       });
     },
-    { scope: navItemsRef }
+    { scope: navItemsRef },
   );
 
   useGSAP(
@@ -67,7 +80,7 @@ function Home() {
               duration: 0.4,
               ease: "power3.out",
             },
-            "<0.1"
+            "<0.1",
           );
       } else {
         gsap
@@ -84,57 +97,53 @@ function Home() {
               duration: 0.2,
               ease: "linear",
             },
-            "<0.1"
+            "<0.1",
           );
       }
     },
-    { dependencies: [showSidebar], scope: sidebarRef }
+    { dependencies: [showSidebar], scope: sidebarRef },
   );
 
-  const handleScroll = useCallback((
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-    sectionId: string
-  ): void => {
-    e.preventDefault();
+  const handleScroll = useCallback(
+    (e: React.MouseEvent<HTMLElement, MouseEvent>, sectionId: string): void => {
+      e.preventDefault();
 
-    if (sectionId === "#") {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-      window.history.pushState(null, "", "/");
-      return;
-    }
+      if (sectionId === "#") {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+        window.history.pushState(null, "", "/");
+        return;
+      }
 
-    const element: HTMLElement | null = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-      window.history.pushState(null, "", `#${sectionId}`);
-      setActiveSection(sectionId);
-    }
-  }, []);
+      const element: HTMLElement | null = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+        window.history.pushState(null, "", `#${sectionId}`);
+        setActiveSection(sectionId);
+      }
+    },
+    [],
+  );
 
   // Handle scroll events for header visibility and active section
   useEffect(() => {
     const handleScrollEvent = () => {
-      // Get current scroll position
       const currentScrollPos = window.pageYOffset;
 
-      // Show/hide header logic
       setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
       setPrevScrollPos(currentScrollPos);
 
-      // Active section detection
       const sections = ["about", "experience", "work", "contact"];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
           if (rect.top <= 100 && rect.bottom >= 100) {
-            // setActiveSection(section);
             break;
           }
         }
@@ -147,7 +156,6 @@ function Home() {
 
   useEffect(() => {
     const currentScrollPos = window.pageYOffset;
-    // console.log("currentSCrooo", currentScrollPos);
     if (currentScrollPos > 20) {
       setIsshowShadow(true);
     } else {
@@ -172,11 +180,9 @@ function Home() {
     }
   }, []);
 
-  // console.log("active sction", activeSection);
-
   // Helper function to determine active link style
   const getLinkClass = (sectionId: string) => {
-    return `hover:text-[#64ffda]  text-[13px] font-SFMono-Regular transition-colors ${
+    return `hover:text-[#64ffda] text-[13px] font-SFMono-Regular transition-colors duration-300 ${
       activeSection === sectionId ? "text-[#64ffda] " : "text-white"
     }`;
   };
@@ -190,17 +196,26 @@ function Home() {
   const handleResumeClick = useCallback(() => {
     window.open(
       "https://drive.google.com/file/d/1GU_FTT1r-zsK6f7ConxVfUV-SXHEr1gS/view",
-      "_blank"
+      "_blank",
     );
   }, []);
 
   return (
     <div className={`w-screen h-screen`}>
-      {/* Header with hide/show on scroll */}
+      {/* Three.js Backgrounds */}
+      <Suspense fallback={null}>
+        <ParticleField />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <CustomCursor />
+      </Suspense>
+
+      {/* Header with glassmorphism */}
       <header
-        className={`sm:h-[70px] h-[60px] sm:pt-[20px] px-[15px] sm:px-[40px] z-50 backdrop-blur-[5px] backdrop-brightness-100 transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)]  w-full flex   flex-row  items-center  justify-between  fixed top-0  ${
-          isShowShadow ? " shadow-md shadow-[#080d14]" : " shadow-none"
-        }   z-50 transition-transform duration-500 ${
+        className={`sm:h-[70px] h-[60px] sm:pt-[20px] px-[15px] sm:px-[40px] z-50 glassmorphism-nav transition-all duration-250 ease-[cubic-bezier(0.645,0.045,0.355,1)] w-full flex flex-row items-center justify-between fixed top-0 ${
+          isShowShadow ? " shadow-lg shadow-[#080d14]/50" : " shadow-none"
+        } z-50 transition-transform duration-500 ${
           visible ? "translate-y-0 " : "-translate-y-full"
         }`}
       >
@@ -211,7 +226,11 @@ function Home() {
           onClick={(e) => handleScroll(e, "#")}
           className="cursor-pointer text-active-color hover:text-shadow-xs font-SFMono-Semibold text-3xl hover:text-shadow-active-color hover:scale-[1.03] duration-300"
         >
-          <img src="/assets/logo.svg" alt="logo" className="w-[50px] h-[50px]" />
+          <img
+            src="/assets/logo.svg"
+            alt="logo"
+            className="w-[50px] h-[50px]"
+          />
         </button>
         <div className=" hidden sm:flex flex-row items-center gap-[25px]">
           <nav className="">
@@ -294,86 +313,110 @@ function Home() {
             <div className="py-[6px] z-10 px-[14px] rounded-[4px] border-[1px] border-active-color bg-active-color absolute top-0 left-0 right-0 bottom-0"></div>
 
             {/* Button - higher z-index */}
-            <div className="py-[6px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] z-20 relative px-[14px] border-[1px] border-active-color bg-[#091930]">
+            <div className="py-[6px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] z-20 relative px-[14px] border-[1px] border-active-color bg-[#091930] neon-border-hover">
               <p className="text-[13px] font-SFMono-Regular text-active-color">
                 Resume
               </p>
             </div>
           </a>
         </div>
-        <div className="w-[40px]   h-[54px] sm:hidden flex justify-center items-center">
+        <div className="w-[40px] h-[54px] sm:hidden flex justify-center items-center">
           <button
             onClick={() => setShowsidebar(!showSidebar)}
             className="relative cursor-pointer w-[30px] h-[2px] bg-active-color before:content-[''] before:absolute before:w-[36px] before:h-[2px] before:bg-active-color before:-top-2 before:right-0 after:content-[''] after:absolute after:w-[24px] after:h-[2px] after:bg-active-color after:top-2 after:right-0"
           ></button>
         </div>
       </header>
-      <div className=" max-w-[90%] sm:max-w-[70%] mx-auto  ">
+      <div className=" max-w-[90%] sm:max-w-[80%] mx-auto relative z-10">
         {/* Page Sections */}
         <section className="">
-          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+          <Suspense
+            fallback={
+              <div className="h-screen flex items-center justify-center">
+                <div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div>
+              </div>
+            }
+          >
             <Hero />
           </Suspense>
         </section>
         <section id="about" className="">
-          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+          <Suspense
+            fallback={
+              <div className="h-screen flex items-center justify-center">
+                <div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div>
+              </div>
+            }
+          >
             <About />
           </Suspense>
         </section>
 
         <section id="experience" className="">
-          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+          <Suspense
+            fallback={
+              <div className="h-screen flex items-center justify-center">
+                <div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div>
+              </div>
+            }
+          >
             <Experience />
           </Suspense>
         </section>
 
         <section id="work" className="">
-          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+          <Suspense
+            fallback={
+              <div className="h-screen flex items-center justify-center">
+                <div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div>
+              </div>
+            }
+          >
             <Project />
           </Suspense>
         </section>
 
         <section id="contact" className="min-h-screen pt-[70px] p-8">
-          <Suspense fallback={<div className="h-screen flex items-center justify-center"><div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div></div>}>
+          <Suspense
+            fallback={
+              <div className="h-screen flex items-center justify-center">
+                <div className="animate-pulse bg-gray-700 h-4 w-48 rounded"></div>
+              </div>
+            }
+          >
             <Contact />
           </Suspense>
         </section>
         {/* bottom sidebar */}
-        {/*<div className=" h-[350px] hidden   sm:flex flex-row justify-between  w-full fixed bottom-0 left-0 right-0 px-[25px]"> */}
-          <div className=" h-[350px] mx-[25px] hidden w-[70px] fixed bottom-0 left-0   sm:flex flex-col items-center gap-[25px] justify-end">
-            <a href="https://github.com/adityas-ops" target="_blank">
-              <FiGithub className=" text-[20px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color" />
-            </a>
-            <a href="https://www.linkedin.com/in/aditya-ops/" target="_blank">
-              <SlSocialLinkedin className=" text-[20px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color" />
-            </a>
+        <div className=" h-[350px] mx-[25px] hidden w-[70px] fixed bottom-0 left-0 sm:flex flex-col items-center gap-[25px] justify-end">
+          <a href="https://github.com/adityas-ops" target="_blank">
+            <FiGithub className="text-[20px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color hover:drop-shadow-[0_0_8px_rgba(100,255,218,0.6)]" />
+          </a>
+          <a href="https://www.linkedin.com/in/aditya-ops/" target="_blank">
+            <SlSocialLinkedin className="text-[20px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color hover:drop-shadow-[0_0_8px_rgba(100,255,218,0.6)]" />
+          </a>
+          <a href="https://www.instagram.com/adityaops.codes/" target="_blank">
+            <LuInstagram className="text-[20px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color hover:drop-shadow-[0_0_8px_rgba(100,255,218,0.6)]" />
+          </a>
+
+          <a href="https://www.facebook.com/adityaops.codes" target="_blank">
+            <FiFacebook className="text-[22px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color hover:drop-shadow-[0_0_8px_rgba(100,255,218,0.6)]" />
+          </a>
+
+          <div className="w-[1px] h-[90px] bg-white/50"></div>
+        </div>
+        <div className="h-[350px] mx-[25px] hidden w-[70px] fixed bottom-0 right-0 sm:flex flex-col items-center gap-[25px] justify-end">
+          <div className="rotate-90 hover:text-active-color hover:translate-y-[-4px] duration-300 absolute top-[100px]">
             <a
-              href="https://www.instagram.com/adityaops.codes/"
+              className="text-[13px] hover:text-active-color hover:drop-shadow-[0_0_8px_rgba(100,255,218,0.6)] text-white font-SFMono-Regular"
+              href="mailto: adityakushinagar123@gmail.com"
               target="_blank"
             >
-              <LuInstagram className=" text-[20px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color" />
+              adityakushinagar123@gmail.com
             </a>
-
-            <a href="https://www.facebook.com/adityaops.codes" target="_blank">
-              <FiFacebook className=" text-[22px] text-white hover:translate-y-[-2px] duration-300 hover:text-active-color" />
-            </a>
-
-            <div className="w-[1px] h-[90px] bg-white"></div>
           </div>
-          <div className="h-[350px] mx-[25px] hidden w-[70px] fixed bottom-0 right-0   sm:flex flex-col items-center gap-[25px] justify-end">
-            <div className=" rotate-90 hover:text-active-color hover:translate-y-[-4px] duration-300 absolute top-[100px]">
-              <a
-                className="text-[13px] hover:text-active-color   text-white font-SFMono-Regular"
-                href="mailto: adityakushinagar123@gmail.com"
-                target="_blank"
-              >
-                adityakushinagar123@gmail.com
-              </a>
-            </div>
-            <div className="w-[1px] h-[90px] bg-white"></div>
-          </div>
-        {/* </div> */}
-        {/* sidebar in mobile view */}
+          <div className="w-[1px] h-[90px] bg-white/50"></div>
+        </div>
         {showSidebar && (
           <>
             <div
@@ -385,14 +428,14 @@ function Home() {
 
             <div
               ref={sidebarRef}
-              className="fixed right-0 sm:hidden block top-0 z-50 h-full w-[70%] max-w-md bg-[#112240] transform translate-x-full shadow-xl"
+              className="fixed right-0 sm:hidden block top-0 z-50 h-full w-[70%] max-w-md bg-[#112240]/95 backdrop-blur-lg transform translate-x-full shadow-xl border-l border-[#64ffda]/10"
               aria-modal="true"
               aria-hidden={!showSidebar}
             >
               <div className="pt-4 px-4 flex justify-end">
                 <button
                   onClick={() => setShowsidebar(!showSidebar)}
-                  className="text-[#64ffda]  transition-colors"
+                  className="text-[#64ffda] transition-colors"
                   aria-label="Close sidebar"
                 >
                   <svg
@@ -411,7 +454,7 @@ function Home() {
               </div>
 
               {/* Your sidebar content goes here */}
-              <div className=" w-full h-full  flex justify-center  pt-[30%]">
+              <div className=" w-full h-full flex justify-center pt-[30%]">
                 <nav className="">
                   <ul className="flex flex-col space-y-[35px]">
                     <li>
@@ -423,7 +466,7 @@ function Home() {
                         }}
                         className={getLinkClassMobile("about")}
                       >
-                        <p className=" mb-1 text-[14px] text-active-color  font-SFMono-Regular ">
+                        <p className=" mb-1 text-[14px] text-active-color font-SFMono-Regular ">
                           01.
                         </p>
                         <p>About</p>
@@ -479,7 +522,7 @@ function Home() {
                         onClick={() => {
                           handleResumeClick();
                         }}
-                        className=" z-50 py-[12px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px]  relative px-[45px] border-[1px] border-active-color bg-[#112240]"
+                        className=" z-50 py-[12px] rounded-[4px] duration-300 hover:translate-x-[-2px] hover:translate-y-[-2px] relative px-[45px] border-[1px] border-active-color bg-[#112240] neon-border-hover"
                       >
                         <p className="text-[16px] font-SFMono-Regular text-active-color">
                           Resume
