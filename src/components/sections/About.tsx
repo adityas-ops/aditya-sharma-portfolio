@@ -172,7 +172,7 @@ function About() {
           <div ref={imageRef} className="about-image-wrapper">
             <div className="about-image-inner">
               <OptimizedImage
-                src="/assets/adicar.jpg"
+                src="/assets/adicar.jpeg"
                 alt="Aditya Sharma - Software Engineer"
                 className="w-full sm:w-[300px] h-full sm:h-[400px] object-cover block"
                 width={300}
