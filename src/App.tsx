@@ -1,55 +1,74 @@
-import { useEffect, useState, Suspense, lazy } from "react";
-import SplashScreen from "./components/SplashScreen";
-import ErrorBoundary from "./components/ErrorBoundary";
-// import DebugInfo from "./components/DebugInfo";
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/react"
-import PerformanceMonitor from "./components/PerformanceMonitor"
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from "./hooks/useLenis";
+import Navbar from "./components/Navbar";
+import Cursor from "./components/Cursor";
+import Hero from "./sections/Hero";
+import About from "./sections/About";
+import Experience from "./sections/Experience";
+import Projects from "./sections/Projects";
+import Contact from "./sections/Contact";
 
-// Lazy load the main Home component
-const Home = lazy(() => import("./components/Home"));
+gsap.registerPlugin(ScrollTrigger);
 
-function App() {
-  const [showSplash, setShowSplash] = useState(true);
+export function App() {
+  useLenis();
 
   useEffect(() => {
-    // console.log('🎬 App component mounted');
-    // console.log('⏰ Starting splash screen timer...');
-    
-    const timer = setTimeout(() => {
-      // console.log('⏰ Splash screen timer completed, showing main app');
-      setShowSplash(false);
-    }, 4000);
+    const sections = document.querySelectorAll<HTMLElement>("[data-bg]");
+    const triggers: ScrollTrigger[] = [];
+
+    sections.forEach((section) => {
+      const bg = section.dataset.bg;
+      if (!bg) return;
+
+      const trigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top 50%",
+        end: "bottom 50%",
+        onEnter: () =>
+          gsap.to("body", {
+            backgroundColor: bg,
+            duration: 0.6,
+            ease: "power2.out",
+          }),
+        onEnterBack: () =>
+          gsap.to("body", {
+            backgroundColor: bg,
+            duration: 0.6,
+            ease: "power2.out",
+          }),
+      });
+      triggers.push(trigger);
+    });
 
     return () => {
-      // console.log('🧹 Cleaning up splash screen timer');
-      clearTimeout(timer);
+      triggers.forEach((t) => t.kill());
     };
   }, []);
 
-  // console.log('🔄 App component rendering, showSplash:', showSplash);
-
   return (
-    <ErrorBoundary>
-      <div className="h-screen w-screen">
-        {showSplash ? (
-          <div className=" w-full h-full flex justify-center items-center">
-            <SplashScreen />
-          </div>
-        ) : (
-          <Suspense fallback={
-            <div className="w-full h-full flex justify-center items-center bg-[#020C1B]">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#64ffda]"></div>
-            </div>
-          }>
-            <Home/>
-          </Suspense>
-        )}
-        <Analytics/>
-        <SpeedInsights/>
-        <PerformanceMonitor/>
-      </div>
-    </ErrorBoundary>
+    <div className="relative min-h-screen selection:bg-[#FF4D00]/30 selection:text-white">
+      <Cursor />
+      <Navbar />
+      {/* <SocialSidebar /> */}
+
+      <main className="relative z-10">
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Contact />
+      </main>
+
+      <footer className="w-full bg-[#0A0A0F] py-8 text-center border-t border-white/5 font-mono-accent text-xs text-[#6B6B7A]">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>Designed & Built by Aditya Sharma</p>
+          <p>© {new Date().getFullYear()} — All Rights Reserved.</p>
+        </div>
+      </footer>
+    </div>
   );
 }
 
