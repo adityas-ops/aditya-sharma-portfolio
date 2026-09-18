@@ -38,13 +38,6 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Hide default cursor on desktop */
-@media (hover: hover) {
-  * {
-    cursor: none !important;
-  }
-}
-
 /* Optimize animations for better performance */
 * {
   will-change: auto;

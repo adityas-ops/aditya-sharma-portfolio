@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useLenis } from "./hooks/useLenis";
 import Navbar from "./components/Navbar";
-import Cursor from "./components/Cursor";
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Experience from "./sections/Experience";
@@ -13,8 +11,6 @@ import Contact from "./sections/Contact";
 gsap.registerPlugin(ScrollTrigger);
 
 export function App() {
-  useLenis();
-
   useEffect(() => {
     const sections = document.querySelectorAll<HTMLElement>("[data-bg]");
     const triggers: ScrollTrigger[] = [];
@@ -50,7 +46,6 @@ export function App() {
 
   return (
     <div className="relative min-h-screen selection:bg-[#FF4D00]/30 selection:text-white">
-      <Cursor />
       <Navbar />
       {/* <SocialSidebar /> */}
 

@@ -155,7 +155,7 @@ export function About() {
         <div className="w-full lg:w-[36%] flex justify-center lg:justify-end lg:sticky lg:top-28">
           <div className="portrait-wrap w-full max-w-[340px]">
             <img
-              src="/assets/adicar.jpeg"
+              src="/assets/adicar.png"
               alt="Aditya Sharma"
               loading="lazy"
               decoding="async"
