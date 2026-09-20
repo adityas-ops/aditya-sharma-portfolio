@@ -7,6 +7,7 @@ import {
   FiLinkedin,
   FiInstagram,
 } from "react-icons/fi";
+import { HeroFire } from "../components/HeroFire";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,35 +18,45 @@ export function Hero() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.2 });
-      tl.from(".hero-topline", { opacity: 0, y: -10, duration: 0.4 })
-        .from(
+      tl.fromTo(
+        ".hero-topline",
+        { opacity: 0, y: -10 },
+        { opacity: 1, y: 0, duration: 0.4, clearProps: "all" },
+      )
+        .fromTo(
           ".hero-first-name",
-          { opacity: 0, y: 50, duration: 0.6, ease: "power3.out" },
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", clearProps: "all" },
           "-=0.1",
         )
-        .from(
+        .fromTo(
           ".hero-last-name",
-          { opacity: 0, y: 50, duration: 0.6, ease: "power3.out" },
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", clearProps: "all" },
           "-=0.35",
         )
-        .from(
-          ".hero-socials a",
-          { opacity: 0, y: 15, stagger: 0.08, duration: 0.4 },
+        .fromTo(
+          ".hero-socials button, .hero-socials a",
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, stagger: 0.08, duration: 0.4, clearProps: "all" },
           "-=0.3",
         )
-        .from(
-          ".hero-btns > *",
-          { opacity: 0, y: 20, stagger: 0.1, duration: 0.4 },
+        .fromTo(
+          ".hero-btns .hero-btn",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, stagger: 0.1, duration: 0.4, ease: "power2.out", clearProps: "all" },
           "-=0.2",
         )
-        .from(
+        .fromTo(
           ".hero-right-top",
-          { opacity: 0, x: 60, duration: 0.6, ease: "power3.out" },
+          { opacity: 0, x: 60 },
+          { opacity: 1, x: 0, duration: 0.6, ease: "power3.out", clearProps: "all" },
           "-=0.5",
         )
-        .from(
+        .fromTo(
           ".hero-right-bottom",
-          { opacity: 0, x: 60, duration: 0.6, ease: "power3.out" },
+          { opacity: 0, x: 60 },
+          { opacity: 1, x: 0, duration: 0.6, ease: "power3.out", clearProps: "all" },
           "-=0.4",
         );
 
@@ -126,15 +137,18 @@ export function Hero() {
       {/* ── Full-bleed 2-panel grid ── */}
       <div className="h-full grid grid-cols-1 lg:grid-cols-[1fr_20%] xl:grid-cols-[1fr_22%]">
         {/* ══ LEFT PANEL — Name & Content ══ */}
-        <div className="flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 py-20 lg:py-0">
+        <div className="relative h-full min-h-full flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 py-20 lg:py-0 overflow-hidden">
+          {/* Animated Rare UI WebGL Fire Background — covers from left edge up to vertical divider */}
+          <HeroFire color="#FC4C01" />
+
           {/* Designation tagline */}
-          <p className="hero-topline font-mono-accent text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/90 mb-4 lg:mb-6">
+          <p className="hero-topline relative z-10 font-mono-accent text-[10px] sm:text-[11px] tracking-[0.3em] uppercase text-white/90 mb-4 lg:mb-6">
             Frontend Developer · App Developer · 2024
           </p>
 
           {/* Giant Name with Cyberpunk Glitch */}
           <h1
-            className="mb-1 select-none cursor-pointer group"
+            className="relative z-10 mb-1 select-none cursor-pointer group"
             onMouseEnter={handleTitleHover}
           >
             <span
@@ -152,7 +166,7 @@ export function Hero() {
           </h1>
 
           {/* CTA Buttons */}
-          <div className="hero-btns mt-6 flex flex-wrap items-center gap-4 z-20">
+          <div className="hero-btns relative z-20 mt-6 flex flex-wrap items-center gap-4">
             <a
               href="#projects"
               onClick={(e) => {
@@ -161,7 +175,7 @@ export function Hero() {
                   .getElementById("projects")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--accent)] text-white font-mono-accent text-xs sm:text-sm font-medium rounded hover:bg-[var(--accent-soft)] transition-colors duration-200"
+              className="hero-btn group inline-flex items-center gap-2 px-7 py-3.5 bg-[var(--accent)] text-white font-mono-accent text-xs sm:text-sm font-medium rounded hover:bg-[var(--accent-soft)] transition-colors duration-200 cursor-pointer"
             >
               VIEW WORK
               <span className="transition-transform group-hover:translate-x-1">
@@ -169,24 +183,19 @@ export function Hero() {
               </span>
             </a>
 
-            <button
-              onClick={() => {
-                window.open(
-                  "https://drive.google.com/file/d/1X5uA6JvE5g9Y8z-7P-N-Xq9eY7yL2/view?usp=sharing",
-                  "_blank",
-                );
-              }}
-              // target="_blank"
-              // rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/30 text-white/80 font-mono-accent text-xs sm:text-sm font-medium rounded hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-200"
+            <a
+              href="https://drive.google.com/file/d/1X5uA6JvE5g9Y8z-7P-N-Xq9eY7yL2/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-btn inline-flex items-center gap-2 px-7 py-3.5 border border-white/40 bg-white/5 backdrop-blur-sm text-white font-mono-accent text-xs sm:text-sm font-medium rounded hover:border-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-all duration-200 cursor-pointer"
             >
               DOWNLOAD CV
               <span className="text-xs">↓</span>
-            </button>
+            </a>
           </div>
 
-          {/* Social Icons — Bottom Left Horizontal */}
-          <div className="hero-socials hidden lg:flex absolute bottom-10 left-24 items-center gap-4 z-20">
+          {/* Social Icons — Bottom Left Horizontal (Always in front of fire) */}
+          <div className="hero-socials hidden lg:flex absolute bottom-10 left-6 sm:left-10 md:left-16 lg:left-20 xl:left-24 items-center gap-4 z-20">
             <button
               onClick={() => {
                 window.open("https://github.com/adityas-ops", "_blank");
@@ -194,7 +203,7 @@ export function Hero() {
               // target="_blank"
               // rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-white/50 hover:text-[var(--accent)] hover:-translate-y-1 transition-all duration-100 text-2xl"
+              className="text-white/80 hover:text-white hover:-translate-y-1 transition-all duration-100 text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
             >
               <FiGithub />
             </button>
@@ -208,7 +217,7 @@ export function Hero() {
               // target="_blank"
               // rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-white/50 hover:text-[var(--accent)] hover:-translate-y-1 transition-all duration-100 text-2xl"
+              className="text-white/80 hover:text-white hover:-translate-y-1 transition-all duration-100 text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
             >
               <FiLinkedin />
             </button>
@@ -219,7 +228,7 @@ export function Hero() {
               // target="_blank"
               // rel="noopener noreferrer"
               aria-label="Instagram"
-              className="text-white/50 hover:text-[var(--accent)] hover:-translate-y-1 transition-all duration-100 text-2xl"
+              className="text-white/80 hover:text-white hover:-translate-y-1 transition-all duration-100 text-2xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
             >
               <FiInstagram />
             </button>
@@ -295,6 +304,7 @@ export function Hero() {
           </p>
         </div>
       </div>
+
 
       {/* Scroll Indicator */}
       {showChevron && (
