@@ -215,7 +215,7 @@ export function Hero() {
             </a>
 
             <a
-              href="https://drive.google.com/file/d/1X5uA6JvE5g9Y8z-7P-N-Xq9eY7yL2/view?usp=sharing"
+              href="https://drive.google.com/file/d/1uBnajSzd5IUu7SsqAEjycs6KyGkQPOl8/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="hero-btn inline-flex items-center gap-2 px-7 py-3.5 border border-white/40 bg-white/5 backdrop-blur-sm text-white font-mono-accent text-xs sm:text-sm font-medium rounded hover:border-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-all duration-200 cursor-pointer"

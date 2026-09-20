@@ -7,6 +7,8 @@ import About from "./sections/About";
 import Experience from "./sections/Experience";
 import Projects from "./sections/Projects";
 import Contact from "./sections/Contact";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,6 +65,9 @@ export function App() {
           <p>© {new Date().getFullYear()} — All Rights Reserved.</p>
         </div>
       </footer>
+
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 }

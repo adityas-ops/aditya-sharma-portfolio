@@ -14,7 +14,12 @@ export default defineConfig({
           gsap: ["gsap", "@gsap/react"],
           three: ["three", "@react-three/fiber", "@react-three/drei"],
           icons: ["react-icons"],
-          analytics: ["@vercel/analytics", "@vercel/speed-insights"],
+          analytics: [
+            "@vercel/analytics",
+            "@vercel/analytics/react",
+            "@vercel/speed-insights",
+            "@vercel/speed-insights/react",
+          ],
         },
         entryFileNames: `assets/[name]-[hash]-${Date.now()}.js`,
         chunkFileNames: `assets/[name]-[hash]-${Date.now()}.js`,

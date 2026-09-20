@@ -136,15 +136,6 @@ export function Navbar() {
                 </button>
               );
             })}
-
-            <a
-              href="https://drive.google.com/file/d/1X5uA6JvE5g9Y8z-7P-N-Xq9eY7yL2/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-4 px-5 py-2 border-1.5 border-[var(--accent)] text-[var(--accent)] rounded font-mono-accent text-xs hover:bg-[var(--accent)] hover:text-white transition-all duration-200 hover:shadow-[0_0_15px_rgba(255,77,0,0.4)]"
-            >
-              Resume
-            </a>
           </nav>
 
           <button
