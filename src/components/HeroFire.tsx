@@ -75,8 +75,8 @@ void main() {
   float b = fbm(vec2(x * 5.3 + 4.2, uv.y * 2.9 - t * 1.5));
   float f = a * 0.72 + b * 0.34;
 
-  // subtracting height tapers every tongue to a tip
-  float e = clamp(f * 2.4 - uv.y * 2.3, 0.0, 1.0);
+  // subtracting height tapers every tongue to a tip (scaled to reduce flame height by ~25%)
+  float e = clamp(f * 2.4 - uv.y * 4.1, 0.0, 1.0);
 
   // transparent so the background shows through; premultiplied to match the canvas compositor
   float alpha = 0.3 * smoothstep(0.06, 0.5, e) + 0.7 * smoothstep(0.5, 0.96, e);
@@ -141,7 +141,7 @@ export function HeroFire({
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
-      gl.STATIC_DRAW
+      gl.STATIC_DRAW,
     );
 
     const aPos = gl.getAttribLocation(program, "a_pos");
@@ -168,7 +168,7 @@ export function HeroFire({
     gl.uniform3f(uColor, rgb[0], rgb[1], rgb[2]);
 
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
     const startTime = performance.now();
     let animId = 0;
@@ -176,7 +176,8 @@ export function HeroFire({
     const render = () => {
       gl.uniform1f(
         uTime,
-        18 + (prefersReducedMotion ? 0 : (performance.now() - startTime) / 1000)
+        18 +
+          (prefersReducedMotion ? 0 : (performance.now() - startTime) / 1000),
       );
       gl.drawArrays(gl.TRIANGLES, 0, 6);
     };

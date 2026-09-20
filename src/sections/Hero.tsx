@@ -26,13 +26,25 @@ export function Hero() {
         .fromTo(
           ".hero-first-name",
           { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", clearProps: "all" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            clearProps: "all",
+          },
           "-=0.1",
         )
         .fromTo(
           ".hero-last-name",
           { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", clearProps: "all" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            clearProps: "all",
+          },
           "-=0.35",
         )
         .fromTo(
@@ -44,19 +56,38 @@ export function Hero() {
         .fromTo(
           ".hero-btns .hero-btn",
           { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, stagger: 0.1, duration: 0.4, ease: "power2.out", clearProps: "all" },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            duration: 0.4,
+            ease: "power2.out",
+            clearProps: "all",
+          },
           "-=0.2",
         )
         .fromTo(
           ".hero-right-top",
           { opacity: 0, x: 60 },
-          { opacity: 1, x: 0, duration: 0.6, ease: "power3.out", clearProps: "all" },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            clearProps: "all",
+          },
           "-=0.5",
         )
         .fromTo(
           ".hero-right-bottom",
           { opacity: 0, x: 60 },
-          { opacity: 1, x: 0, duration: 0.6, ease: "power3.out", clearProps: "all" },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            clearProps: "all",
+          },
           "-=0.4",
         );
 
@@ -304,7 +335,6 @@ export function Hero() {
           </p>
         </div>
       </div>
-
 
       {/* Scroll Indicator */}
       {showChevron && (
